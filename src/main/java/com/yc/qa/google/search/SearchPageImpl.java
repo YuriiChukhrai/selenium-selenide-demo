@@ -26,7 +26,7 @@ public final class SearchPageImpl extends BasePageImpl implements SearchPage {
 	}
 
 	private final By inputFieldXpath = By.xpath("//input[@name='q']");
-	private final String linksXpathTemplate = "(//link//..//a[contains(@href,'%s')])[1]";
+	private final String linksXpathTemplate = "(//div[contains(@data-async-context,'%1$s')]//a[contains(@href,'%1$s')])[1]";
 
 	private final String searchEngineUrl = "http://google.com";
 	private String searchContent;

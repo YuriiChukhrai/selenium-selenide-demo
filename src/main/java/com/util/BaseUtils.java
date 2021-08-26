@@ -115,6 +115,6 @@ public final class BaseUtils {
 	}
 	
 	public static synchronized boolean isWebDriverDead(final WebDriver webDriver) {
-		return Objects.isNull(webDriver) || (((RemoteWebDriver) webDriver).getSessionId() != null);
+		return Objects.isNull(webDriver) || (((RemoteWebDriver) webDriver).getSessionId() == null);
 	}
 }

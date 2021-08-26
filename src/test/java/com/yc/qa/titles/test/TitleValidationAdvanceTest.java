@@ -58,7 +58,7 @@ public class TitleValidationAdvanceTest extends BaseTest {
 	@Severity(SeverityLevel.NORMAL)
 	@Description("Upload resume")
 	@Owner("Yurii Chukhrai")
-	@Test(enabled = true, groups = "UPLOAD", dataProvider = "dp")
+	@Test(enabled = true, groups = "SEARCH", dataProvider = "dp")
 	public void resumeTest01(final String site) {
 	    
 		ObjectSupplier.$(SearchPageImpl.class)

@@ -96,7 +96,7 @@ public class TitleValidationEasyTest {
 		return new Object[][] {
 			{"indeed", "Job Search | Indeed"},
 			{"ontada", "Oncology Insights & Technology | Ontada"},
-			{"blaBla", "Bla title"}
+			{"blaBla", "Bla title"} // Implicitly will fail
 		};
 	}
 	
@@ -117,7 +117,7 @@ public class TitleValidationEasyTest {
 		driver.get("http://googl.com");
 		driver.findElement(By.xpath("//input[@name='q']")).sendKeys(site + Keys.ENTER);
 
-		By links = By.xpath(String.format("(//link//..//a[contains(@href,'%s')])[1]", site));
+		By links = By.xpath(String.format("(//div[contains(@data-async-context,'%1$s')]//a[contains(@href,'%1$s')])[1]", site));
 
 		webDriverWait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(links));
 		Utils.makeScreenShot("Partial. Google page", driver);

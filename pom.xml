@@ -23,11 +23,11 @@
 		<jdk.version>1.8</jdk.version>
 		<mvnSFplugin.version>3.0.0-M5</mvnSFplugin.version>
 
-		<ng.suite>src/test/resources/testng/${tNG}.xml</ng.suite>
+		<ng.suite>src/test/resources/testng/${test.suite}.xml</ng.suite>
 		<aspectj.version>1.9.2</aspectj.version>
 		<draft.package>draft</draft.package>
 
-		<pmd.plugin.version>3.11.0</pmd.plugin.version>
+		<pmd.plugin.version>3.14.0</pmd.plugin.version>
 		<checkstyle.plugin.version>3.0.0</checkstyle.plugin.version>
 		<spotbugs.plugin.version>3.1.11</spotbugs.plugin.version>
 
@@ -36,12 +36,12 @@
 		<allure.maven.version>2.10.0</allure.maven.version>
 		<selenium.version>3.141.59</selenium.version>
 
-		<jacoco.version>0.8.5</jacoco.version>
+		<jacoco.version>0.8.7</jacoco.version>
 		<skip.integration.tests>true</skip.integration.tests>
 		<skip.unit.tests>true</skip.unit.tests>
+		
 		<jacoco.it.execution.data.file>${project.build.directory}/coverage-reports/jacoco-it.exec</jacoco.it.execution.data.file>
 		<jacoco.ut.execution.data.file>${project.build.directory}/coverage-reports/jacoco-ut.exec</jacoco.ut.execution.data.file>
-
 		<webdriver.install.directory>${project.build.directory}/drivers</webdriver.install.directory>
 	</properties>
 
@@ -204,7 +204,7 @@
 						</property>
 					</systemProperties>
 					<systemPropertyVariables>
-						<resume.name>Yurii-Chukhrai-SDET.docx</resume.name>
+						<resume.name></resume.name>
 					</systemPropertyVariables>
 
 				</configuration>

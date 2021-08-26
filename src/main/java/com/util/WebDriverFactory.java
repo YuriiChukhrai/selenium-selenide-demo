@@ -31,10 +31,6 @@ public final class WebDriverFactory {
 		throw new UnsupportedOperationException("Illegal access to private constructor");
 	}
 
-	/**
-	 * @param -Ddriver.type=CHROME
-	 * @param -Ddriver.version=92.0.4515.107
-	 */
 	public static synchronized WebDriver createDriver() {
 		return WebDriverFactory.createDriver(BaseConfig.getProperty(Constants.DRIVER_TYPE_PROP),
 				BaseConfig.getProperty(Constants.DRIVER_VER_PROP));
@@ -52,7 +48,7 @@ public final class WebDriverFactory {
 
 		if (!BaseUtils.isEmpty(driverType) && !BaseUtils.isEmpty(driverVersion)) {
 
-			switch (driverType.toUpperCase()) {
+			switch (driverType.trim().toUpperCase()) {
 
 			case Constants.FIREFOX_SHORT:
 			case Constants.FIREFOX_LONG:
@@ -60,14 +56,15 @@ public final class WebDriverFactory {
 				log.info("Create Gecko WebDriver");
 				FirefoxOptions firefoxOptions = new FirefoxOptions();
 				firefoxOptions.setLogLevel(FirefoxDriverLogLevel.ERROR);
+				//firefoxOptions.setCapability(FirefoxDriver.MARIONETTE, true);
+				firefoxOptions.setCapability(CapabilityType.LOGGING_PREFS, logs);
+				firefoxOptions.setCapability("handlesAlerts", true);
+				firefoxOptions.setCapability("acceptInsecureCerts", true);
 
-				// For remote
-				DesiredCapabilities firefoxCapability = DesiredCapabilities.firefox();
-				firefoxCapability.setCapability(CapabilityType.LOGGING_PREFS, logs);
-				firefoxCapability.setCapability(FirefoxDriver.MARIONETTE, true);
-				firefoxCapability.setCapability("handlesAlerts", true);
-				firefoxCapability.setCapability("acceptInsecureCerts", true);
-				firefoxCapability.setCapability("moz:firefoxOptions", firefoxCapability);
+				firefoxOptions.setCapability("moz:webdriverClick", false);
+				firefoxOptions.setCapability("pageLoadStrategy", "normal");
+				firefoxOptions.setCapability("javascriptEnabled", true);
+				firefoxOptions.setCapability("headless", false);
 
 				WebDriverManager.firefoxdriver().driverVersion(driverVersion)
 						.operatingSystem(BaseUtils.isOs("MAC") ? OperatingSystem.MAC : OperatingSystem.WIN).setup();
