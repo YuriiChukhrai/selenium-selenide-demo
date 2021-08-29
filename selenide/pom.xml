@@ -1,0 +1,42 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>com.yc.qa</groupId>
+	<artifactId>selenide</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<packaging>jar</packaging>
+
+	<name>Selenide</name>
+	<description>Child pom for Selenium-Selenide-Demo</description>
+
+	<parent>
+        <groupId>com.yc.qa</groupId>
+        <artifactId>selenium-selenide-demo</artifactId>
+        <version>1.0.0-SNAPSHOT</version>
+    </parent>
+
+	<properties>
+		<selenide.version>5.23.3</selenide.version>
+		<selenide-testng.version>1.0.0</selenide-testng.version>
+	</properties>
+
+	<dependencies>
+
+		<dependency>
+			<groupId>com.codeborne</groupId>
+			<artifactId>selenide</artifactId>
+			<version>${selenide.version}</version>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.selenide</groupId>
+			<artifactId>selenide-testng</artifactId>
+			<version>${selenide-testng.version}</version>
+			<scope>test</scope>
+		</dependency>
+
+	</dependencies>
+</project>

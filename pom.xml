@@ -4,26 +4,29 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.yc.qa</groupId>
-	<artifactId>selenium-demo</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
-	<packaging>jar</packaging>
-
-	<name>Selenium-Demo</name>
-	<url>https://github.com/YuriiChukhrai/selenium-demo</url>
-	<description>Parent pom for Selenium-Demo</description>
+	<artifactId>selenium-selenide-demo</artifactId>
+	<version>1.0.0-SNAPSHOT</version>
+	<packaging>pom</packaging>
+	<name>Selenium-Selenide-Demo</name>
+	<url>https://github.com/YuriiChukhrai/selenium-selenide-demo</url>
+	<description>Parent pom for Selenium-Selenide-Demo</description>
 
 	<scm>
-		<url>https://github.com/YuriiChukhrai/selenium-demo</url>
-		<connection>scm:git:ssh://git@github.com:YuriiChukhrai/selenium-demo.git</connection>
-		<developerConnection>scm:git:ssh://git@github.com:YuriiChukhrai/selenium-demo.git</developerConnection>
+		<url>https://github.com/YuriiChukhrai/selenium-selenide-demo</url>
+		<connection>scm:git:ssh://git@github.com:YuriiChukhrai/selenium-selenide-demo.git</connection>
+		<developerConnection>scm:git:ssh://git@github.com:YuriiChukhrai/selenium-selenide-demo.git</developerConnection>
 	</scm>
+
+    <modules>
+        <module>selenium</module>
+<!--        <module>selenide</module>-->
+    </modules>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<jdk.version>1.8</jdk.version>
 		<mvnSFplugin.version>3.0.0-M5</mvnSFplugin.version>
 
-		<ng.suite>src/test/resources/testng/${test.suite}.xml</ng.suite>
 		<aspectj.version>1.9.2</aspectj.version>
 		<draft.package>draft</draft.package>
 
@@ -35,6 +38,7 @@
 		<allure.testng.version>2.14.0</allure.testng.version>
 		<allure.maven.version>2.10.0</allure.maven.version>
 		<selenium.version>3.141.59</selenium.version>
+		<reflectasm.version>1.11.3</reflectasm.version>
 
 		<jacoco.version>0.8.7</jacoco.version>
 		<skip.integration.tests>true</skip.integration.tests>
@@ -42,7 +46,6 @@
 		
 		<jacoco.it.execution.data.file>${project.build.directory}/coverage-reports/jacoco-it.exec</jacoco.it.execution.data.file>
 		<jacoco.ut.execution.data.file>${project.build.directory}/coverage-reports/jacoco-ut.exec</jacoco.ut.execution.data.file>
-		<webdriver.install.directory>${project.build.directory}/drivers</webdriver.install.directory>
 	</properties>
 
 	<dependencies>
@@ -72,6 +75,13 @@
 		</dependency>
 
 		<dependency>
+			<groupId>org.seleniumhq.selenium</groupId>
+			<artifactId>selenium-remote-driver</artifactId>
+			<version>${selenium.version}</version>
+			<scope>compile</scope>
+		</dependency>
+
+		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-log4j12</artifactId>
 			<version>1.7.12</version>
@@ -89,19 +99,6 @@
 			<version>1.5.4</version>
 		</dependency>
 
-		<dependency>
-			<groupId>com.esotericsoftware</groupId>
-			<artifactId>reflectasm</artifactId>
-			<version>1.11.3</version>
-		</dependency>
-
-		<dependency>
-			<groupId>io.github.bonigarcia</groupId>
-			<artifactId>webdrivermanager</artifactId>
-			<version>4.4.3</version>
-			<!-- <scope>test</scope> -->
-		</dependency>
-
 		<!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
 		<dependency>
 			<groupId>org.projectlombok</groupId>
@@ -109,7 +106,13 @@
 			<version>1.18.20</version>
 			<scope>provided</scope>
 		</dependency>
-		
+
+		<dependency>
+			<groupId>com.esotericsoftware</groupId>
+			<artifactId>reflectasm</artifactId>
+			<version>${reflectasm.version}</version>
+		</dependency>
+
 	</dependencies>
 
 	<build>
