@@ -11,7 +11,7 @@ Make sure you have installed on your operating system:<br/>
 
 
 ## Running Tests
-The following steps should get you set up for running Selenium/Selenide tests locally on your machine:
+The following steps should get you set up for running **Selenium/Selenide** tests locally on your machine:
 
 1. Clone this repository to your local machine:<br/>
     * HTTPS. ` $> git clone https://github.com/YuriiChukhrai/selenium-selenide-demo.git `
@@ -21,8 +21,8 @@ The following steps should get you set up for running Selenium/Selenide tests lo
 
 
 ## Modules
-1. [Selenium](./selenium/README.md) - This module contains the demo on pure **Selenium API** with automatically downloading necessary WebDriver and POM (page object model - the architectural approach to organize the classes).
-2. [Selenide](./selenide/README.md) - This module contains the demo on **Selenide API**. 
+1. **[selenium](./selenium/README.md)** - This module contains the demo on pure **Selenium API** with automatically downloading necessary WebDriver and POM (page object model - the architectural approach to organize the classes).
+2. **[selenide](./selenide/README.md)** - This module contains the demo of small portion the **Selenide API**. 
 
 
 ### Static Analysis
@@ -31,7 +31,8 @@ Static code analysis is a method of debugging by examining source code before a 
 This type of analysis addresses weaknesses in source code that might lead to vulnerabilities. Of course, this may also be achieved through manual code reviews. But using automated tools is much more effective.<br>
 It’s often used for complying with industry standards — such as [ISO 26262](https://www.iso.org/standard/43464.html).
 
-1. ` $> mvn clean site -Pstatic-analysis -Dmaven.test.skip=true ` - Run all static analysis frameworks (PMD, CPD, SpotBugs, Checkstyle) and generate the HTML report. Report location ` {project.base.dir}/target/site/surefire-report.html `
+1. ` $> mvn clean site -Pstatic-analysis -Dmaven.test.skip=true ` - Run all static analysis frameworks (PMD, CPD, SpotBugs, Checkstyle) and generate the HTML report.<br>
+Report location: ` {project.base.dir}/target/site/surefire-report.html `
 
 
 # Reports

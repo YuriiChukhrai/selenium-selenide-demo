@@ -4,12 +4,12 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
 
+import com.util.BaseListener;
+import com.util.ObjectSupplier;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 
-import com.util.BaseListener;
-import com.util.ObjectSupplier;
 import com.yc.qa.BaseTest;
 import com.yc.qa.google.search.SearchPageImpl;
 import com.yc.qa.indeed.pom.LandingPageImpl;

@@ -1,0 +1,23 @@
+TODO
+
+
+
+Sequince:
+1) Install [Selenium-Selenide-Demo] module
+	mvn clean -Dmaven.test.skip=true install
+
+2) Selenium
+	mvn clean site -Dtest.suite=easy -Ddriver.type=chrome -Ddriver.version=94.0.4606.71
+
+
+
+mvn clean site -Dtest.suite=easy -Ddriver.type=chrome -Ddriver.version=92.0.4515.107
+
+<ng.suite>src/test/resources/testng/${test.suite}</ng.suite>
+
+
+mvn clean site -Dng.suite=./selenium/src/test/resources/testng/easy.xml -Ddriver.type=chrome -Ddriver.version=92.0.4515.107
+
+mvn clean compiler:testCompile surefire:test -Dtest.suite=easy -Ddriver.type=chrome -Ddriver.version=92.0.4515.107
+
+

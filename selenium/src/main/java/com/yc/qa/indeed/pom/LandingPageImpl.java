@@ -6,9 +6,9 @@ import java.nio.file.Paths;
 
 import com.util.BaseConfig;
 import com.util.BasePageImpl;
+
 import com.util.Constants;
 import com.util.ObjectSupplier;
-
 import io.qameta.allure.Step;
 import lombok.extern.log4j.Log4j;
 
@@ -22,7 +22,6 @@ public class LandingPageImpl extends BasePageImpl implements LandingPage {
 	@Step("Sign In")
 	@Override
 	public HomePage signIn() {
-
 		return ObjectSupplier.$(HomePageImpl.class);
 	}
 
@@ -30,8 +29,6 @@ public class LandingPageImpl extends BasePageImpl implements LandingPage {
 	@Override
 	public LandingPage findJobs(final String jobTitle) {
 		throw new RuntimeException("Not implemented yet");
-
-		// return this;
 	}
 
 	@Step("Upload resume")

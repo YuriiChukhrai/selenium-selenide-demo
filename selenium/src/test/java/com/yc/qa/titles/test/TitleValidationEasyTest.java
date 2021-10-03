@@ -11,6 +11,8 @@ import java.util.concurrent.TimeUnit;
 
 import javax.imageio.ImageIO;
 
+import com.util.BaseUtils;
+import com.util.WebDriverFactory;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
@@ -28,9 +30,6 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
-
-import com.util.BaseUtils;
-import com.util.WebDriverFactory;
 
 import io.qameta.allure.Attachment;
 import io.qameta.allure.Description;
@@ -61,7 +60,6 @@ import ru.yandex.qatools.ashot.shooting.ShootingStrategy;
 *
 * @author limit (Yurii Chukhrai)
 */
-
 public class TitleValidationEasyTest {
 
 	public static WebDriver driver;

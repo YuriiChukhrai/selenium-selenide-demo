@@ -22,7 +22,7 @@ public abstract class BasePage {
 	abstract BasePage sendKeys(final Keys keys);
 
 	abstract BasePage sendKeys(final By locator, final CharSequence keysToSend);
-
+	
 	abstract BasePage sendKeysCustom(final By locator, final CharSequence text);
 
 	abstract BasePage openURL(final String url);
@@ -38,7 +38,7 @@ public abstract class BasePage {
 	abstract BasePage click(final WebElement webElement);
 
 	abstract BasePage clickLocatorJs(final By locator);
-
+	
 	abstract BasePage clickJavaScript(final WebElement webElement);
 
 	abstract String getText(final By locator);
