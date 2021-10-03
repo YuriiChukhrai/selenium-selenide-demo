@@ -1,7 +1,6 @@
 package com.yc.qa.titles.test;
 
 /**
- *
  * @author limit (Yurii Chukhrai)
  */
 import com.codeborne.selenide.Condition;
@@ -17,7 +16,6 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
-
 import static com.codeborne.selenide.Condition.ownText;
 import static com.codeborne.selenide.Selectors.byName;
 import static com.codeborne.selenide.Selectors.byXpath;
@@ -25,20 +23,18 @@ import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$$;
 import static com.codeborne.selenide.Selenide.open;
 
-
-
 public class TitleValidationEasyTest {
 
 	@BeforeClass(alwaysRun = true)
 	public final void beforeClass() {
 
+		/*
+		* Integration with Allure report (saveScreenshots and page)
+		* */
 		SelenideLogger.addListener("AllureSelenide", new AllureSelenide());
 
-		// or for fine-tuning:
-		//SelenideLogger.addListener("AllureSelenide", new AllureSelenide().screenshots(true).savePageSource(true).includeSelenideSteps(true) );
-
 		/*
-		* similarity to Factory design pattern
+		* some kind of Factory design pattern
 		 * */
 		final String driverType = BaseConfig.getProperty(Constants.DRIVER_TYPE_PROP);
 
@@ -48,7 +44,7 @@ public class TitleValidationEasyTest {
 		else if(Constants.FIREFOX_SHORT.equalsIgnoreCase(driverType) || Constants.FIREFOX_LONG.equalsIgnoreCase(driverType)){
 			WebDriverManager.firefoxdriver().driverVersion(BaseConfig.getProperty(Constants.DRIVER_VER_PROP)).setup();
 		}
-	}//beforeClass
+	}// beforeClass
 
 	@DataProvider(parallel = false)
 	public Object[][] dp() {
@@ -77,21 +73,6 @@ public class TitleValidationEasyTest {
        open("http://google.com");
         $(byName("q")).shouldBe(Condition.visible).sendKeys(site + Keys.ENTER);
 		$$(byXpath(String.format("(//div[contains(@data-async-context,'%1$s')]//a[contains(@href,'%1$s')])[1]", site))).first().shouldBe(Condition.visible).click();
-
-		//$("title").shouldHave(attribute("text", title));
-
 		$("title").shouldHave(ownText(title));
-
-		//assertThat( $., describedAs(String.format("Expected title [%s].", title), containsString(title)));
-		//Utils.makeScreenShot("Partial. Google page", driver);
-		//$("#hplogo").shouldBe(Condition.visible);
 	}
 }
-
-//		webDriverWait.until(ExpectedConditions.titleContains(title));
-//
-//		assertThat(driver.getTitle(), describedAs(String.format("Expected title [%s].", title), containsString(title)));
-//		Utils.makeScreenShot(String.format("Partial. Site [%s], Title [%s].", site, title), driver);
-//		Utils.makeScreenAsShot(String.format("Full. Site [%s], Title [%s].", site, title), true, driver);
-
-

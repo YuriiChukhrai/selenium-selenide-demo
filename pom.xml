@@ -24,7 +24,6 @@
     </modules>
 
     <properties>
-        <!--		<parent.version>${version}</parent.version> -->
         <ng.suite>src/test/resources/testng/${test.suite}.xml</ng.suite>
         <selenium.version>3.141.59</selenium.version>
 
@@ -252,7 +251,6 @@
                 </configuration>
             </plugin>
 
-            <!-- https://mvnrepository.com/artifact/io.qameta.allure/allure-maven -->
             <plugin>
                 <groupId>io.qameta.allure</groupId>
                 <artifactId>allure-maven</artifactId>
@@ -321,7 +319,6 @@
                     </plugin>
 
                     <plugin>
-                        <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-checkstyle-plugin -->
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-checkstyle-plugin</artifactId>
                         <version>${checkstyle.plugin.version}</version>
@@ -336,7 +333,6 @@
                             <excludes>*/${draft.package}/**</excludes>
                         </configuration>
                     </plugin>
-
                 </plugins>
             </reporting>
         </profile>
