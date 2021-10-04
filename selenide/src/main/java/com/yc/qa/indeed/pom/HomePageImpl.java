@@ -1,11 +1,9 @@
-//package com.yc.qa.indeed.pom;
-//
-//import com.util.BasePageImpl;
-//
-///**
-// *
-// * @author limit (Yurii Chukhrai)
-// */
-//public class HomePageImpl extends BasePageImpl implements HomePage {
-//
-//}
+package com.yc.qa.indeed.pom;
+
+/**
+ *
+ * @author limit (Yurii Chukhrai)
+ */
+public class HomePageImpl  implements HomePage {
+
+}

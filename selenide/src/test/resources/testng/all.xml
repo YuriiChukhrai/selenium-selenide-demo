@@ -5,7 +5,7 @@
 <!-- <suite name="Suite" parallel = "methods" thread-count="2"> -->
 <!-- <suite name="Suite" parallel = "classes" thread-count="2"> -->
 
-<suite name="Title Validatio. Selenium Demo." parallel="classes" thread-count="1"
+<suite name="Title Validation. Selenide Demo." parallel="classes" thread-count="1"
 	data-provider-thread-count="2">
 
 	<test name="Easy">
