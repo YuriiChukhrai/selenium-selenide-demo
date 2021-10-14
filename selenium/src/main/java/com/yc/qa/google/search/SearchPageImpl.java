@@ -43,7 +43,7 @@ public final class SearchPageImpl extends BasePageImpl implements SearchPage {
 		return this;
 	}
 
-	@Step("Go to first link. And return page [{pageObjectModelPage.getClass().getName()}]")
+	@Step("Go to first link. And return page [{0}]")
 	@Override
 	public <T> T goToFirstLink(Class<T> pageObject) {
 

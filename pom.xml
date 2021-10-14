@@ -225,11 +225,22 @@
                     </dependency>
                 </dependencies>
             </plugin>
+
+            <plugin>
+                <groupId>io.qameta.allure</groupId>
+                <artifactId>allure-maven</artifactId>
+                <version>${allure.maven.version}</version>
+                <configuration>
+                    <reportTimeout>3600</reportTimeout>
+                    <reportVersion>${allure.version}</reportVersion>
+                </configuration>
+            </plugin>
+
         </plugins>
     </build>
 
     <reporting>
-        <plugins>
+       <plugins>
 
 
             <plugin>
@@ -244,37 +255,37 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-project-info-reports-plugin</artifactId>
-                <version>2.9</version>
+               <version>2.9</version>
                 <configuration>
                     <dependencyLocationsEnabled>false</dependencyLocationsEnabled>
-                    <dependencyDetailsEnabled>false</dependencyDetailsEnabled>
+                   <dependencyDetailsEnabled>false</dependencyDetailsEnabled>
                 </configuration>
             </plugin>
 
-            <plugin>
-                <groupId>io.qameta.allure</groupId>
-                <artifactId>allure-maven</artifactId>
-                <version>${allure.maven.version}</version>
-            </plugin>
+<!--            <plugin>-->
+<!--                <groupId>io.qameta.allure</groupId>-->
+<!--                <artifactId>allure-maven</artifactId>-->
+<!--                <version>${allure.maven.version}</version>-->
+<!--            </plugin>-->
 
-            <plugin>
-                <groupId>org.jacoco</groupId>
-                <artifactId>jacoco-maven-plugin</artifactId>
-                <version>${jacoco.version}</version>
-                <reportSets>
-                    <reportSet>
-                        <inherited>true</inherited>
-                        <reports>
-                            <!-- select non-aggregate reports -->
-                            <report>report</report>
-                        </reports>
-                    </reportSet>
-                </reportSets>
-                <configuration>
-                    <dataFile>${jacoco.ut.execution.data.file}</dataFile>
-                    <outputDirectory>${project.reporting.outputDirectory}/jacoco-ut</outputDirectory>
-                </configuration>
-            </plugin>
+<!--            <plugin>-->
+<!--                <groupId>org.jacoco</groupId>-->
+<!--                <artifactId>jacoco-maven-plugin</artifactId>-->
+<!--                <version>${jacoco.version}</version>-->
+<!--                <reportSets>-->
+<!--                    <reportSet>-->
+<!--                        <inherited>true</inherited>-->
+<!--                        <reports>-->
+<!--                            &lt;!&ndash; select non-aggregate reports &ndash;&gt;-->
+<!--                            <report>report</report>-->
+<!--                        </reports>-->
+<!--                    </reportSet>-->
+<!--                </reportSets>-->
+<!--                <configuration>-->
+<!--                    <dataFile>${jacoco.ut.execution.data.file}</dataFile>-->
+<!--                    <outputDirectory>${project.reporting.outputDirectory}/jacoco-ut</outputDirectory>-->
+<!--                </configuration>-->
+<!--            </plugin>-->
 
         </plugins>
     </reporting>
@@ -336,5 +347,63 @@
                 </plugins>
             </reporting>
         </profile>
+
+        <profile>
+            <id>reporting</id>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
+
+            <reporting>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-surefire-report-plugin</artifactId>
+                        <version>${mvnSFplugin.version}</version>
+                        <configuration>
+                            <goal>report-only</goal>
+                        </configuration>
+                    </plugin>
+
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-project-info-reports-plugin</artifactId>
+                        <version>2.9</version>
+                        <configuration>
+                            <dependencyLocationsEnabled>false</dependencyLocationsEnabled>
+                            <dependencyDetailsEnabled>false</dependencyDetailsEnabled>
+                        </configuration>
+                    </plugin>
+
+                    <plugin>
+                        <groupId>io.qameta.allure</groupId>
+                        <artifactId>allure-maven</artifactId>
+                        <version>${allure.maven.version}</version>
+                    </plugin>
+
+                    <plugin>
+                        <groupId>org.jacoco</groupId>
+                        <artifactId>jacoco-maven-plugin</artifactId>
+                        <version>${jacoco.version}</version>
+                        <reportSets>
+                            <reportSet>
+                                <inherited>true</inherited>
+                                <reports>
+                                    <!-- select non-aggregate reports -->
+                                    <report>report</report>
+                                </reports>
+                            </reportSet>
+                        </reportSets>
+                        <configuration>
+                            <dataFile>${jacoco.ut.execution.data.file}</dataFile>
+                            <outputDirectory>${project.reporting.outputDirectory}/jacoco-ut</outputDirectory>
+                        </configuration>
+                    </plugin>
+
+                </plugins>
+            </reporting>
+
+        </profile>
+
     </profiles>
 </project>

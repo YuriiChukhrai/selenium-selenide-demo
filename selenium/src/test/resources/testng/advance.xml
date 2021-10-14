@@ -9,7 +9,7 @@
 
 	<test name="Advance.">
 		<classes>
-			<class name="com.yc.qa.titles.test.TitleValidationAdvanceTest" />
+			<class name="com.yc.qa.test.selenium.TitleValidationAdvanceTest" />
 		</classes>
 	</test>
 </suite>
