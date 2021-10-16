@@ -17,6 +17,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
 
+import static com.codeborne.selenide.Selenide.page;
+
 @Listeners(BaseListener.class)
 public class TitleValidationAdvanceTest extends BaseTest {
 
@@ -42,9 +44,8 @@ public class TitleValidationAdvanceTest extends BaseTest {
 	public void resumeTest01(final String site) {
 
 		Allure.feature( BaseConfig.getProperty(Constants.DRIVER_TYPE_PROP) );
-		//Allure.epic(BaseConfig.getProperty(Constants.DRIVER_TYPE_PROP));
 
-		ObjectSupplier.$(SearchPageImpl.class)
+		page(SearchPageImpl.class)
 						.searchContent(site)
 						.goToFirstLink(LandingPageImpl.class);
 	}

@@ -3,7 +3,6 @@ package com.yc.qa.indeed.pom;
 import com.codeborne.selenide.Condition;
 import com.util.BaseConfig;
 import com.util.Constants;
-import com.util.ObjectSupplier;
 import io.qameta.allure.Step;
 import lombok.extern.log4j.Log4j;
 
@@ -12,6 +11,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 
 import static com.codeborne.selenide.Selenide.$;
+import static com.codeborne.selenide.Selenide.page;
 
 /**
  *
@@ -23,7 +23,7 @@ public class LandingPageImpl implements LandingPage {
 	@Step("Sign In")
 	@Override
 	public HomePage signIn() {
-		return ObjectSupplier.$(HomePageImpl.class);
+		return page(HomePageImpl.class);
 	}
 
 	@Step("Find job [{0}]")

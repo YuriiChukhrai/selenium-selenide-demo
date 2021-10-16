@@ -1,4 +1,5 @@
-# Selenide demo [UI Tests]
+![Selenide](../doc/selenide-logo.png "Java + Selenide")
+# Selenide demo [UI Tests] 
 
 This repository contains [Selenide](https://selenide.org/) demo tests for the Google, Indeed pages.
 

@@ -1,7 +1,9 @@
 package com.util;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.util.Objects;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -60,9 +62,20 @@ public final class BaseUtils {
 			log.info(String.format("TID [%d] - Random wait [%s].", Thread.currentThread().getId(), wait));
 			Thread.sleep(wait);
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
+			log.error("Can't wait randonly " + e.getMessage());
 		}
+	}
+
+	@Attachment(value = "{0}", type = "image/png")
+	public static byte[] makeScreenAsShot(String fileNames, final File file) {
+		try {
+			return Files.readAllBytes(file.toPath());
+		} catch (IOException e) {
+			e.printStackTrace();
+			log.error("Can't make screenshot " + e.getMessage());
+		}
+		return null;
 	}
 
 	@Attachment(value = "{0}", type = "image/png")

@@ -8,13 +8,9 @@ import com.codeborne.selenide.Condition;
 import com.util.BaseConfig;
 import com.util.Constants;
 import com.util.TestGroups;
-import io.github.bonigarcia.wdm.WebDriverManager;
 import io.qameta.allure.*;
-import com.codeborne.selenide.logevents.SelenideLogger;
-import io.qameta.allure.model.Label;
-import io.qameta.allure.selenide.AllureSelenide;
+
 import org.openqa.selenium.Keys;
-import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
@@ -25,28 +21,7 @@ import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$$;
 import static com.codeborne.selenide.Selenide.open;
 
-public class TitleValidationEasyTest {
-
-	@BeforeClass(alwaysRun = true)
-	public final void beforeClass() {
-
-		/*
-		* Integration with Allure report (saveScreenshots and page)
-		* */
-		SelenideLogger.addListener("AllureSelenide", new AllureSelenide());
-
-		/*
-		* some kind of Factory design pattern
-		 * */
-		final String driverType = BaseConfig.getProperty(Constants.DRIVER_TYPE_PROP);
-
-		if(driverType == null || Constants.CHROME_SHORT.equalsIgnoreCase(driverType) || Constants.CHROME_LONG.equalsIgnoreCase(driverType)){
-			WebDriverManager.chromedriver().driverVersion(BaseConfig.getProperty(Constants.DRIVER_VER_PROP)).setup();
-		}
-		else if(Constants.FIREFOX_SHORT.equalsIgnoreCase(driverType) || Constants.FIREFOX_LONG.equalsIgnoreCase(driverType)){
-			WebDriverManager.firefoxdriver().driverVersion(BaseConfig.getProperty(Constants.DRIVER_VER_PROP)).setup();
-		}
-	}// beforeClass
+public class TitleValidationEasyTest extends BaseTest {
 
 	@DataProvider(parallel = false)
 	public Object[][] dp() {
@@ -73,7 +48,6 @@ public class TitleValidationEasyTest {
 	public void titleTest(final String site, final String title) {
 
 		Allure.feature(BaseConfig.getProperty(Constants.DRIVER_TYPE_PROP));
-		//Allure.epic(BaseConfig.getProperty(Constants.DRIVER_TYPE_PROP));
 
        open("http://google.com");
         $(byName("q")).shouldBe(Condition.visible).sendKeys(site + Keys.ENTER);
