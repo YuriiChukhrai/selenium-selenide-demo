@@ -4,6 +4,12 @@
 This **[repository](https://github.com/YuriiChukhrai/selenium-selenide-demo)** contains [**Selenium**](http://seleniumhq.org/) and [**Selenide**](https://selenide.org/) demo tests for the Google and Indeed pages.
 
 
+## Introduction
+When I am doing an interview of candidates, the previous projects (in git hub or maybe on their machine) are much more critical for me than some fundamental questions about Git, Java, Selenium, Maven, or Jenkins.
+We are all people. In an interview, we all can experience anxiety or fear, so I do not believe you can evaluate candidates' many years' background in a couple of hours (even if it is in many panel interviews ~ 8 hours).
+I prefer to discuss the candidate demos (explore the code and see how clean it is and what library and why they were used) or discuss their articles in blogs or LinkedIn.
+
+
 ## Dependencies
 Make sure you have installed on your operating system:<br/>
 1. [JDK. Oracle](http://www.java.com/) OR [OpenJDK](https://openjdk.java.net/)
@@ -17,6 +23,23 @@ Make sure you have installed on your operating system:<br/>
 3. **shared** - This module contains the shared code (processing properties, common interfaces and etc.) for both modules (selenium and selenide).
 
 
+### Test Suites
+The following are valid TestNG test suites for use in the ` -Dtest.suite={test suite name}` parameter: 
+1. ` easy `
+2. ` advance `
+3. ` all `
+4. ` fileUploadDonload `
+
+
+### CLO (Command Line Options)
+The following are valid test parameters:
+* ` -Dtest.suite` - Which test scenario need to run - TestNG XML file name [all, easy, advance].<br/>
+* ` -Ddriver.type` - Which browser need to use, for example `CHROME`, `IE`, `FF`, `SAFARI`, `HTMLUNIT`. Optional, default `CHROME` (case-insensitive).<br/>
+* ` -Ddriver.version` -  Which the driver version need to use.<br/>
+* ` -Dgroups` - Which test group need to run (TestNg groups) [SEARCH, DEFAULT or others].<br/>
+* ` -Preporting` - The Maven profile what enable generation of report (by default reporting disabled).
+
+
 ## Running Tests
 The following steps should get you set up for running **Selenium/Selenide** modules locally on your machine:
 
@@ -25,24 +48,18 @@ The following steps should get you set up for running **Selenium/Selenide** modu
     * SSH. ` $> git clone git@github.com:YuriiChukhrai/selenium-selenide-demo.git `<br/><br/>
 2. All commands must be run from the required module (**selenium** or **selenide**) directory, cloned during setup process above.<br/><br/>
 3. ` $ {project.base.dir}> mvn clean compile -Dmaven.test.skip=true install` - Clean up the `target` directory, upload all necessary dependencies, compile java classes and install shared module to the local **Maven** repository.
-4. ` $ {project.base.dir}/{module}> mvn clean compile ` - Clean up the `target` directory, upload all necessary dependencies and compile java classes.
+4. ` $ {project.base.dir}\{module}> mvn clean compile ` - Clean up the `target` directory, upload all necessary dependencies and compile java classes.
 ### CHROME
-5. ` $ {project.base.dir}\{module}> mvn clean site -Dtest.suite=easy -Ddriver.type=chrome -Ddriver.version=94.0.4606.71 ` - Run test suite `easy` (without POM and additional layers) for Chrome browser version **94.0.4606.71**  (or you can provide your version) and generate reports ( Surefire Report; Allure; JaCoCo ).<br/>
+5. ` $ {project.base.dir}\{module}> mvn clean site -Dtest.suite=easy -Ddriver.type=chrome -Ddriver.version=94.0.4606.71 -Preporting` - Run test suite `easy` (without POM and additional layers) for Chrome browser version **94.0.4606.71**  (or you can provide your version) and generate reports ( Surefire Report; Allure; JaCoCo ).<br/>
    **NOTE!** The script will automatically download required WebDriver due too `-Ddriver.type` and `-Ddriver.version`.<br/><br/>
 6. ` $ {project.base.dir}\{module}> mvn clean site -Dtest.suite=advance -Dgroups=SEARCH -Ddriver.type=chrome -Ddriver.version=94.0.4606.71 `<br/><br/>
 7. ` $ {project.base.dir}\{module}> mvn clean site -Dtest.suite=all -Ddriver.type=chrome -Ddriver.version=94.0.4606.71 `<br/><br/>
+8. ` $ {project.base.dir}\{module}> mvn clean site -Dtest.suite=fileUploadDonload -Ddriver.type=chrome -Ddriver.version=94.0.4606.71 ` - **Selenide only**.<br/><br/>
 ### FIREFOX (FF)
-8. ` $ {project.base.dir}\{module}> mvn clean site -Dtest.suite=easy -Ddriver.type=ff -Ddriver.version=0.30.0 `<br/><br/>
-9. ` $ {project.base.dir}\{module}> mvn clean site -Dtest.suite=advance -Dgroups=SEARCH -Ddriver.type=FIREFOX -Ddriver.version=0.30.0 `<br/><br/>
-10. ` $ {project.base.dir}\{module}> mvn clean site -Dtest.suite=all -Ddriver.type=ff -Ddriver.version=0.30.0 `<br/><br/>
-
-### Parameters
-The following are valid test parameters:
-*	` -Dtest.suite` - Which test scenario need to run - TestNG XML file name [all, easy, advance].<br/>
-*	` -Ddriver.type` - Which browser need to use, for example `CHROME`, `IE`, `FF`, `SAFARI`, `HTMLUNIT`. Optional, default `CHROME` (case-insensitive).<br/>
-*	` -Ddriver.version` -  Which the driver version need to use.<br/>
-*	` -Dgroups` - Which test group need to run (TestNg group) [SEARCH, DEFAULT].<br/>
-
+9. ` $ {project.base.dir}\{module}> mvn clean site -Dtest.suite=easy -Ddriver.type=ff -Ddriver.version=0.30.0 `<br/><br/>
+10. ` $ {project.base.dir}\{module}> mvn clean site -Dtest.suite=advance -Dgroups=SEARCH -Ddriver.type=FIREFOX -Ddriver.version=0.30.0 `<br/><br/>
+11. ` $ {project.base.dir}\{module}> mvn clean site -Dtest.suite=all -Ddriver.type=ff -Ddriver.version=0.30.0 `<br/><br/>
+    **NOTE!** Please, do not forgot to use the Maven profile for report generation ` -Preporting`.<br/><br/>
 
 ### Browsers
 The following are valid for use in the `-Ddriver.type` parameter:
@@ -55,24 +72,15 @@ The following are valid for use in the `-Ddriver.type` parameter:
 
 
 ### Static Analysis
-
 Static code analysis is a method of debugging by examining source code before a program is run. It’s done by analyzing a set of code against a set (or multiple sets) of coding rules.<br><br>
 This type of analysis addresses weaknesses in source code that might lead to vulnerabilities. Of course, this may also be achieved through manual code reviews. But using automated tools is much more effective.<br>
 It’s often used for complying with industry standards — such as [ISO 26262](https://www.iso.org/standard/43464.html).
 
 1. ` $ {project.base.dir}> mvn clean site -Pstatic-analysis -Dmaven.test.skip=true ` - Run all static analysis frameworks (PMD, CPD, SpotBugs, Checkstyle) and generate the HTML report.<br>
-Report location: ` {project.base.dir}/target/site/surefire-report.html `
-
-### Runner
-
+Report location: ` {project.base.dir}\{module}\target\site\surefire-report.html `
 
 
 # Reports
-
-
-`-Preporting`
-
-
 In project exist 4 kind of reports (location: `{project.base.dir}\{module}\target\site\index.html`):
 - [TestNG](http://testng.org/doc/documentation-main.html) produce ‘index.html‘ report, and it resides in the same test-output folder. This reports gives the link to all the different component of the TestNG reports like Groups & Reporter Output.<br/>
 - [Surefire](http://maven.apache.org/surefire/maven-surefire-plugin/) report. The Surefire Plugin is used during the test phase of the build life-cycle to execute the unit tests of an application.<br/>
@@ -82,6 +90,4 @@ In project exist 4 kind of reports (location: `{project.base.dir}\{module}\targe
 
 
 # Wishlist (TODO)
-1. Download files
-2. Proxy integration
-3. [Accept Cookies] function
+1. [Accept Cookies] function on the landing page

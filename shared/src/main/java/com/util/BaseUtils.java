@@ -63,17 +63,27 @@ public final class BaseUtils {
 			Thread.sleep(wait);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
-			log.error("Can't wait randonly " + e.getMessage());
+			log.error("Can't wait random " + e.getMessage());
 		}
 	}
 
-	@Attachment(value = "{0}", type = "image/png")
-	public static byte[] makeScreenAsShot(String fileNames, final File file) {
+	@Attachment(fileExtension = ".har", value = "{0}", type = "")
+	public static byte[] addHar(final String filename, final File file) {
 		try {
 			return Files.readAllBytes(file.toPath());
 		} catch (IOException e) {
 			e.printStackTrace();
-			log.error("Can't make screenshot " + e.getMessage());
+		}
+		return null;
+	}
+
+	@Attachment(value = "{0}", type = "image/png")
+	public static byte[] attachImageFile(String fileNames, final File file) {
+		try {
+			return Files.readAllBytes(file.toPath());
+		} catch (IOException e) {
+			e.printStackTrace();
+			log.error("Can't attache file " +file.getName() + ". Error: " + e.getMessage());
 		}
 		return null;
 	}

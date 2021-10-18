@@ -1,5 +1,7 @@
 package com.yc.qa.test.selenide;
 
+import com.browserup.bup.BrowserUpProxy;
+import com.browserup.bup.proxy.CaptureType;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.FileDownloadMode;
@@ -9,11 +11,13 @@ import com.util.TestGroups;
 import io.qameta.allure.*;
 import org.openqa.selenium.By;
 import org.testng.Assert;
+import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.nio.file.Paths;
 
 import static com.codeborne.selenide.Selenide.$;
@@ -26,12 +30,31 @@ import static com.util.BaseUtils.makeScreenAsShot;
  */
 public class UploadDownloadFileTest extends BaseTest  {
 
+    BrowserUpProxy bmp;
+
     @BeforeClass(alwaysRun = true)
     public void beforeClass() {
         Configuration.downloadsFolder = "./target/downloads";
         Configuration.proxyEnabled = true;
         Configuration.fileDownload = FileDownloadMode.HTTPGET;
     }
+
+    @AfterClass(alwaysRun = true)
+    public void afterClass() throws IOException {
+
+        /*
+        * In current moment the plugin [allure-harviewer] support attachment inside the test method
+        *
+        * */
+
+//        if(bmp != null){
+//            final File harFile = new File("harFile.har");
+//            bmp.getHar().writeTo(harFile);
+//            bmp.stop();
+//            BaseUtils.addHar(harFile.getName(), harFile);
+//        }
+    }
+
 
     @Features({ @Feature("UPLOAD"), @Feature("DOWNLOAD") })
     @Issues({ @Issue("GA-011"), @Issue("GTA-012") })
@@ -42,10 +65,10 @@ public class UploadDownloadFileTest extends BaseTest  {
     @Lead("Yurii Chukhrai")
     @Flaky
     @Severity(SeverityLevel.NORMAL)
-    @Description("Upload and Download")
+    @Description("Upload and Download files.")
     @Owner("Yurii Chukhrai")
     @Test(priority = 0, enabled = true, groups = TestGroups.DEFAULT)
-    public void uploadDownloadFileTest() throws FileNotFoundException {
+    public void uploadDownloadFileTest() throws IOException {
 
         final String fileName01 = "selenide-logo.png";
         final String fileName02 = "selenium-logo.png";
@@ -55,6 +78,16 @@ public class UploadDownloadFileTest extends BaseTest  {
         final String downloadPath = "//a[@title='%1$s']/img[contains(@src,'%1$s')]/parent::a";//img[contains(@src,'%1$s')]/parent::a
 
         open("https://blueimp.github.io/jQuery-File-Upload/");
+
+        //After the proxy started - get it
+        bmp = WebDriverRunner.getSelenideProxy().getProxy();
+        // remember body of requests (body is not stored by default because it can be large)
+        bmp.setHarCaptureTypes(CaptureType.getAllContentCaptureTypes());
+        // remember both requests and responses
+        bmp.enableHarCaptureTypes(CaptureType.REQUEST_CONTENT, CaptureType.RESPONSE_CONTENT);
+        // start recording!
+        bmp.newHar("test.com");
+
 
         //Upload
         $(By.xpath("//input[@type='file']")).uploadFile(Paths.get(String.format(uploadPath, fileName01)).toFile(), Paths.get(String.format(uploadPath, fileName02)).toFile());
@@ -70,11 +103,25 @@ public class UploadDownloadFileTest extends BaseTest  {
         final File file02 = $(By.xpath(String.format(downloadPath, fileName02))).download(withName(fileName02));
 
         //Attach files to the report
-        BaseUtils.makeScreenAsShot(fileName01, file01);
-        BaseUtils.makeScreenAsShot(fileName02, file02);
+        BaseUtils.attachImageFile(fileName01, file01);
+        BaseUtils.attachImageFile(fileName02, file02);
 
         //Download
         Assert.assertTrue(file01.exists());
         Assert.assertTrue(file02.exists());
+
+        /*
+        * If Proxy working:
+        *   a) pull the HAR file from proxy
+        *   b) save HAR file
+        *   c) stop Proxy
+        *   d) attach HAR file to the Allure report
+        * */
+        if(bmp != null){
+            final File harFile = new File("./target/harFile.har");
+            bmp.getHar().writeTo(harFile);
+            bmp.stop();
+            BaseUtils.addHar(harFile.getName(), harFile);
+        }
     }
 }

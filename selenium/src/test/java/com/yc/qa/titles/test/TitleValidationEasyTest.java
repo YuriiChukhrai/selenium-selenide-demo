@@ -11,7 +11,6 @@ import java.util.concurrent.TimeUnit;
 
 import javax.imageio.ImageIO;
 
-import com.util.BaseUtils;
 import com.util.WebDriverFactory;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
