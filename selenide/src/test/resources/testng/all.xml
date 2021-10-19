@@ -1,22 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
 
-<!-- <suite name="Suite" parallel = "tests" thread-count="2"> -->
-<!-- <suite name="Suite" parallel = "methods" thread-count="2"> -->
-<!-- <suite name="Suite" parallel = "classes" thread-count="2"> -->
+<suite name="Selenide Demo." parallel="tests" thread-count="3"
+       data-provider-thread-count="1">
 
-<suite name="Title Validation. Selenide Demo." parallel="classes" thread-count="1"
-	data-provider-thread-count="2">
+    <test name="Easy">
+        <classes>
+            <class name="com.yc.qa.test.selenide.TitleValidationEasyTest"/>
+        </classes>
+    </test>
 
-	<test name="Easy">
-		<classes>
-			<class name="com.yc.qa.test.selenide.TitleValidationEasyTest" />
-		</classes>
-	</test>
+    <test name="Advance">
+        <classes>
+            <class name="com.yc.qa.test.selenide.TitleValidationAdvanceTest"/>
+        </classes>
+    </test>
 
-	<test name="Advance">
-		<classes>
-			<class name="com.yc.qa.test.selenide.TitleValidationAdvanceTest" />
-		</classes>
-	</test>
+    <test name="File Upload Download">
+        <classes>
+            <class name="com.yc.qa.test.selenide.UploadDownloadFileTest"/>
+        </classes>
+    </test>
+
 </suite>

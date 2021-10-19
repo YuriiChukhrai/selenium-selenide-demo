@@ -11,12 +11,10 @@ import com.util.TestGroups;
 import io.qameta.allure.*;
 import org.openqa.selenium.By;
 import org.testng.Assert;
-import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Paths;
 
@@ -32,28 +30,31 @@ public class UploadDownloadFileTest extends BaseTest  {
 
     BrowserUpProxy bmp;
 
+    @Override
     @BeforeClass(alwaysRun = true)
     public void beforeClass() {
+
         Configuration.downloadsFolder = "./target/downloads";
-        Configuration.proxyEnabled = true;
         Configuration.fileDownload = FileDownloadMode.HTTPGET;
+        Configuration.proxyEnabled = true;
+
+        super.beforeClass();
     }
 
-    @AfterClass(alwaysRun = true)
-    public void afterClass() throws IOException {
-
-        /*
-        * In current moment the plugin [allure-harviewer] support attachment inside the test method
-        *
-        * */
-
+    /*
+     * In the current moment the plugin [allure-harviewer] support attachment inside the test method
+     *
+     * */
+//    @AfterClass(alwaysRun = true)
+//    public void afterClass() throws IOException {
+//
 //        if(bmp != null){
 //            final File harFile = new File("harFile.har");
 //            bmp.getHar().writeTo(harFile);
 //            bmp.stop();
 //            BaseUtils.addHar(harFile.getName(), harFile);
 //        }
-    }
+//    }
 
 
     @Features({ @Feature("UPLOAD"), @Feature("DOWNLOAD") })
@@ -79,12 +80,15 @@ public class UploadDownloadFileTest extends BaseTest  {
 
         open("https://blueimp.github.io/jQuery-File-Upload/");
 
-        //After the proxy started - get it
+        // After the proxy started - get it
         bmp = WebDriverRunner.getSelenideProxy().getProxy();
+
         // remember body of requests (body is not stored by default because it can be large)
         bmp.setHarCaptureTypes(CaptureType.getAllContentCaptureTypes());
+
         // remember both requests and responses
         bmp.enableHarCaptureTypes(CaptureType.REQUEST_CONTENT, CaptureType.RESPONSE_CONTENT);
+
         // start recording!
         bmp.newHar("test.com");
 

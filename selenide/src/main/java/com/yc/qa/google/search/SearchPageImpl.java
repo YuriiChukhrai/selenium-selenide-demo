@@ -22,7 +22,6 @@ public final class SearchPageImpl implements SearchPage {
 	private final String inputFieldXpath ="//input[@name='q']";
 	private final String linksXpathTemplate = "(//div[contains(@data-async-context,'%1$s')]//a[contains(@href,'%1$s')])[1]";
 
-	private final String searchEngineUrl = "http://google.com";
 	private String searchContent;
 
 	@Step("Search content [{0}]")
@@ -30,7 +29,6 @@ public final class SearchPageImpl implements SearchPage {
 	public SearchPage searchContent(String searchContent) {
 		this.searchContent = searchContent;
 
-        open(searchEngineUrl);
 		$(byXpath(inputFieldXpath)).shouldBe(Condition.visible).sendKeys(this.searchContent + Keys.ENTER);
 
 		return this;

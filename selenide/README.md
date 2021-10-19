@@ -121,6 +121,11 @@ public static byte[] addHar(final String filename, final File file) {
 ```
 
 
+## Report
+If for some reason you are not able to run **Selenide** module you can find example of the [report](../doc/selenide-surefire-allure-jacoco-report.7z) in the current project.
+
+![Selenide](../doc/selenide-reports.png "SureFire, Allure and JaCoCo report")
+
 ## References
 1. [Selenide](https://selenide.org/) - Official website
 2. [Selenide Wiki](https://github.com/selenide/selenide/wiki)

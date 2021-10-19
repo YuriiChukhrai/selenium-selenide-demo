@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
 
+import static com.codeborne.selenide.Selenide.open;
 import static com.codeborne.selenide.Selenide.page;
 
 @Listeners(BaseListener.class)
@@ -40,8 +41,10 @@ public class TitleValidationAdvanceTest extends BaseTest {
 	@Severity(SeverityLevel.NORMAL)
 	@Description("Upload resume")
 	@Owner("Yurii Chukhrai")
-	@Test(enabled = true, groups = TestGroups.SEARCH, dataProvider = "dp")
-	public void resumeTest01(final String site) {
+	@Test(priority = 2, enabled = true, groups = TestGroups.SEARCH, dataProvider = "dp")
+	public void titleTest01(final String site) {
+
+		open("http://google.com");
 
 		Allure.feature( BaseConfig.getProperty(Constants.DRIVER_TYPE_PROP) );
 

@@ -44,7 +44,7 @@ public class TitleValidationEasyTest extends BaseTest {
 	@Severity(SeverityLevel.NORMAL)
 	@Description("Title assertion")
 	@Owner("Yurii Chukhrai")
-	@Test(priority = 0, enabled = true, groups = TestGroups.DEFAULT, dataProvider = "dp")
+	@Test(priority = 1, enabled = true, groups = TestGroups.DEFAULT, dataProvider = "dp")
 	public void titleTest(final String site, final String title) {
 
 		Allure.feature(BaseConfig.getProperty(Constants.DRIVER_TYPE_PROP));

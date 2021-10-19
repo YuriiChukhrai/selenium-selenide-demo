@@ -6,7 +6,7 @@ import com.util.BaseConfig;
 import com.util.Constants;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import io.qameta.allure.selenide.AllureSelenide;
-import org.testng.annotations.BeforeSuite;
+import org.testng.annotations.BeforeClass;
 
 /**
  *
@@ -16,8 +16,8 @@ import org.testng.annotations.BeforeSuite;
 //@Listeners(BaseListener.class)
 public class BaseTest {
 
-	@BeforeSuite(alwaysRun = true)
-	public final void beforeSuite() {
+	@BeforeClass(alwaysRun = true)
+	public void beforeClass() {
 
         /*
          * Integration with Allure report (saveScreenshots and page)
