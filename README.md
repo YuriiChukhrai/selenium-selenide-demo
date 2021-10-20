@@ -54,12 +54,13 @@ The following steps should get you set up for running **Selenium/Selenide** modu
    **NOTE!** The script will automatically download required WebDriver due too `-Ddriver.type` and `-Ddriver.version`.<br/><br/>
 6. ` $ {project.base.dir}\{module}> mvn clean site -Dtest.suite=advance -Dgroups=SEARCH -Ddriver.type=chrome -Ddriver.version=94.0.4606.71 `<br/><br/>
 7. ` $ {project.base.dir}\{module}> mvn clean site -Dtest.suite=all -Ddriver.type=chrome -Ddriver.version=94.0.4606.71 `<br/><br/>
-8. ` $ {project.base.dir}\{module}> mvn clean site -Dtest.suite=fileUploadDonload -Ddriver.type=chrome -Ddriver.version=94.0.4606.71 ` - **Selenide only**.<br/><br/>
+8. ` $ {project.base.dir}\{module}> mvn clean site -Dtest.suite=fileUploadDonload -Ddriver.type=chrome -Ddriver.version=94.0.4606.71 `<br/><br/>
 ### FIREFOX (FF)
 9. ` $ {project.base.dir}\{module}> mvn clean site -Dtest.suite=easy -Ddriver.type=ff -Ddriver.version=0.30.0 `<br/><br/>
 10. ` $ {project.base.dir}\{module}> mvn clean site -Dtest.suite=advance -Dgroups=SEARCH -Ddriver.type=FIREFOX -Ddriver.version=0.30.0 `<br/><br/>
 11. ` $ {project.base.dir}\{module}> mvn clean site -Dtest.suite=all -Ddriver.type=ff -Ddriver.version=0.30.0 `<br/><br/>
-    **NOTE!** Please, do not forgot to use the Maven profile for report generation ` -Preporting`.<br/><br/>
+12. ` $ {project.base.dir}\{module}> mvn clean site -Dtest.suite=fileUploadDonload -Ddriver.type=ff -Ddriver.version=0.30.0 `<br/><br/>
+    **NOTE!** Please, do not forgot to use the Maven profile for report generation ` -Preporting` if you would like to have SureFire, Allure and JaCoCo reports.<br/><br/>
 
 ### Browsers
 The following are valid for use in the `-Ddriver.type` parameter:

@@ -76,7 +76,7 @@ public class UploadDownloadFileTest extends BaseTest  {
 
         final String uploadPath = "../doc/%s";
         final String uploadedFileXpath = "//a[text()='%s']";
-        final String downloadPath = "//a[@title='%1$s']/img[contains(@src,'%1$s')]/parent::a";//img[contains(@src,'%1$s')]/parent::a
+        final String downloadPath = "//a[@title='%1$s']/img[contains(@src,'%1$s')]/parent::a";
 
         open("https://blueimp.github.io/jQuery-File-Upload/");
 

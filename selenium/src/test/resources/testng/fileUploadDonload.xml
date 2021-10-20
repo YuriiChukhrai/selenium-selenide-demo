@@ -5,22 +5,9 @@
 <!-- <suite name="Suite" parallel = "methods" thread-count="2"> -->
 <!-- <suite name="Suite" parallel = "classes" thread-count="2"> -->
 
-<suite name="Selenium Demo" parallel="tests" thread-count="1"
-	data-provider-thread-count="2">
+<suite name="File Upload Download. Selenium Demo." parallel = "tests" thread-count="1" data-provider-thread-count="1">
 
-	<test name="Easy">
-		<classes>
-			<class name="com.yc.qa.test.selenium.TitleValidationEasyTest" />
-		</classes>
-	</test>
-
-	<test name="Advance">
-		<classes>
-			<class name="com.yc.qa.test.selenium.TitleValidationAdvanceTest" />
-		</classes>
-	</test>
-
-	<test name="File Upload Download">
+	<test name="File Upload Download.">
 		<classes>
 			<class name="com.yc.qa.test.selenium.UploadDownloadFileTest" />
 		</classes>

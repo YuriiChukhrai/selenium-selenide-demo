@@ -59,6 +59,7 @@ public class TitleValidationEasyTest {
 		wait = new FluentWait<WebDriver>(driver).withTimeout(Duration.ofSeconds(30)).pollingEvery(Duration.ofSeconds(5))
 				.ignoring(NoSuchElementException.class);
 		actions = new Actions(driver);
+
 	}
 
 	@AfterClass
