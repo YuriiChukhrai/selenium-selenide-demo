@@ -236,7 +236,6 @@
     <reporting>
        <plugins>
 
-
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-report-plugin</artifactId>
@@ -255,31 +254,6 @@
                    <dependencyDetailsEnabled>false</dependencyDetailsEnabled>
                 </configuration>
             </plugin>
-
-<!--            <plugin>-->
-<!--                <groupId>io.qameta.allure</groupId>-->
-<!--                <artifactId>allure-maven</artifactId>-->
-<!--                <version>${allure.maven.version}</version>-->
-<!--            </plugin>-->
-
-<!--            <plugin>-->
-<!--                <groupId>org.jacoco</groupId>-->
-<!--                <artifactId>jacoco-maven-plugin</artifactId>-->
-<!--                <version>${jacoco.version}</version>-->
-<!--                <reportSets>-->
-<!--                    <reportSet>-->
-<!--                        <inherited>true</inherited>-->
-<!--                        <reports>-->
-<!--                            &lt;!&ndash; select non-aggregate reports &ndash;&gt;-->
-<!--                            <report>report</report>-->
-<!--                        </reports>-->
-<!--                    </reportSet>-->
-<!--                </reportSets>-->
-<!--                <configuration>-->
-<!--                    <dataFile>${jacoco.ut.execution.data.file}</dataFile>-->
-<!--                    <outputDirectory>${project.reporting.outputDirectory}/jacoco-ut</outputDirectory>-->
-<!--                </configuration>-->
-<!--            </plugin>-->
 
         </plugins>
     </reporting>
