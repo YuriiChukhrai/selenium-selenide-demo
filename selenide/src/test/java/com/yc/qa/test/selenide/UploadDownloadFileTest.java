@@ -62,7 +62,7 @@ public class UploadDownloadFileTest extends BaseTest  {
     @Stories({ @Story("Stories: CIR-098"), @Story("Stories: CIR-099") })
     @Epics({ @Epic("Epic05"), @Epic("Epic06") })
     @TmsLinks({ @TmsLink("1234"), @TmsLink("4321") })
-    @Links({ @Link(name = "Link#1", url = "https://knowledge.bla.com/confluence"), @Link(name = "Link#2", url = "https://bitbucket.bla.com:8443/projects/bla") })
+    @Links({ @Link(url="https://github.com/YuriiChukhrai/selenium-selenide-demo", name="GitHub"), @Link(url="https://www.linkedin.com/in/yurii-c-b55aa6174/", name="LinkedIn") })
     @Lead("Yurii Chukhrai")
     @Flaky
     @Severity(SeverityLevel.NORMAL)

@@ -34,8 +34,7 @@ public class TitleValidationAdvanceTest extends BaseTest {
 	@Stories({ @Story("Stories: CIR-001"), @Story("Stories: CIR-002") })
 	@Epics({ @Epic("Epic01"), @Epic("Epic02") })
 	@TmsLinks({ @TmsLink("12345"), @TmsLink("54321") })
-	@Links({ @Link(name = "Link#1", url = "https://knowledge.bla.com/confluence"),
-			@Link(name = "Link#2", url = "https://bitbucket.bla.com:8443/projects/bla") })
+	@Links({ @Link(url="https://github.com/YuriiChukhrai/selenium-selenide-demo", name="GitHub"), @Link(url="https://www.linkedin.com/in/yurii-c-b55aa6174/", name="LinkedIn") })
 	@Lead("Yurii Chukhrai")
 	@Flaky
 	@Severity(SeverityLevel.NORMAL)

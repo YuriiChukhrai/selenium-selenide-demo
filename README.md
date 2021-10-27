@@ -1,8 +1,8 @@
-![Selenide](./doc/selenide-logo.png "Java + Selenide")![Selenium](./doc/selenium-logo.png "Java + Selenium")
+![Selenide](./doc/selenide-logo.png "Java + Selenide") ![Selenium](./doc/selenium-logo.png "Java + Selenium")
 # Selenium, Selenide Demo [UI Tests]
 
-This **[repository](https://github.com/YuriiChukhrai/selenium-selenide-demo)** contains [**Selenium**](http://seleniumhq.org/) and [**Selenide**](https://selenide.org/) demo tests for the Google and Indeed pages.
-
+This **[repository](https://github.com/YuriiChukhrai/selenium-selenide-demo)** contains [**Selenium**](http://seleniumhq.org/) and [**Selenide**](https://selenide.org/) UI demo tests for the Google and Indeed pages.
+Also provided demo how to upload and download files using **Selenium** and **Selenide**. In **Selenide** module also provided demo with build-in proxy server and how to generate **HAR** [(HTTP Archive)](https://en.wikipedia.org/wiki/HAR_(file_format)) file and attache it to the Allure report.
 
 ## Introduction
 When I am doing an interview of candidates, the previous projects (in git hub or maybe on their machine) are much more critical for me than some fundamental questions about Git, Java, Selenium, Maven, or Jenkins.
@@ -20,7 +20,7 @@ Make sure you have installed on your operating system:<br/>
 ## Modules
 1. **[selenium](./selenium/README.md)** - This module contains the demo on pure **Selenium API** with automatically downloading necessary WebDriver and POM (page object model - the architectural approach to organize the classes).
 2. **[selenide](./selenide/README.md)** - This module contains the demo of small portion the **Selenide API**.
-3. **shared** - This module contains the shared code (processing properties, common interfaces and etc.) for both modules (selenium and selenide).
+3. **shared** - This module contains the shared (reusable) code (processing properties, common interfaces and etc.) for both modules (selenium and selenide).
 
 
 ### Test Suites
@@ -63,7 +63,7 @@ The following steps should get you set up for running **Selenium/Selenide** modu
     **NOTE!** Please, do not forgot to use the Maven profile for report generation ` -Preporting` if you would like to have SureFire, Allure and JaCoCo reports.<br/><br/>
 
 ### Browsers
-The following are valid for use in the `-Ddriver.type` parameter:
+The following are valid for use in the ` -Ddriver.type ` parameter:
 
 * CHROME - do not forgot provide the driver version
 * FF - do not forgot provide the driver version

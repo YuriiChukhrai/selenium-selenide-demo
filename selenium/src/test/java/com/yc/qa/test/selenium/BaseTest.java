@@ -14,7 +14,6 @@ import org.testng.annotations.Listeners;
  * @author limit (Yurii Chukhrai)
  */
 
-@Listeners(BaseListener.class)
 public class BaseTest {
 
 	@BeforeClass(alwaysRun = true)
