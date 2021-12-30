@@ -1,32 +1,23 @@
 package com.yc.qa.test.selenium;
 
-import com.util.BaseListener;
 import com.util.ThreadStoreLocal;
 import com.util.WebDriverFactory;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.Listeners;
+
+import java.util.Objects;
 
 /**
- *
  * @author limit (Yurii Chukhrai)
  */
 
 public class BaseTest {
 
-	@BeforeClass(alwaysRun = true)
-	public final void beforeClass() {
-	}
-
 	@AfterClass(alwaysRun = true)
 	public final void afterClass() {
-
-		if (ThreadStoreLocal.getWebDriver() != null) {
-			ThreadStoreLocal.getWebDriver().quit();
-		}
-		ThreadStoreLocal.getWebDriverContainer().remove();
+		cleanUp ();
 	}
 
 	@BeforeMethod(alwaysRun = true)
@@ -36,10 +27,14 @@ public class BaseTest {
 
 	@AfterMethod(alwaysRun = true)
 	public final void tearDownMethod() {
+		cleanUp ();
+	}
 
-		if (ThreadStoreLocal.getWebDriver() != null) {
+
+	private void cleanUp (){
+		if (Objects.nonNull(ThreadStoreLocal.getWebDriver())) {
 			ThreadStoreLocal.getWebDriver().quit();
 		}
-		ThreadStoreLocal.getWebDriverContainer().remove();
+		ThreadStoreLocal.  getWebDriverContainer().remove();
 	}
 }
