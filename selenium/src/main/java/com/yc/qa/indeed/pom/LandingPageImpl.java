@@ -4,11 +4,11 @@ import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
-import com.util.BaseConfig;
+import com.yc.qa.util.BaseConfig;
 import com.util.BasePageImpl;
 
-import com.util.Constants;
-import com.util.ObjectSupplier;
+import com.yc.qa.util.Constants;
+import com.yc.qa.util.ObjectSupplier;
 import io.qameta.allure.Step;
 import lombok.extern.log4j.Log4j;
 
@@ -58,7 +58,7 @@ public class LandingPageImpl extends BasePageImpl implements LandingPage {
 			click(uploadResumeLink);
 			findElement(uploadResumeInput).sendKeys(path);
 			findElement(uploadedLabel);
-			makeScreenAsShot("Upload resume", false);
+			makeScreenShot("Upload resume");
 
 			log.info(String.format("The resume uploaded. Path [%s]", path));
 		}

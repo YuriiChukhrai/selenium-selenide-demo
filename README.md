@@ -5,7 +5,7 @@ This **[repository](https://github.com/YuriiChukhrai/selenium-selenide-demo)** c
 Also provided demo how to upload and download files using **Selenium** and **Selenide**. In **Selenide** module also provided demo with build-in proxy server and how to generate **HAR** [(HTTP Archive)](https://en.wikipedia.org/wiki/HAR_(file_format)) file and attache it to the Allure report.
 
 ## Introduction
-When I am doing an interview of candidates, the previous projects (in git hub or maybe on their machine) are much more critical for me than some fundamental questions about Git, Java, Selenium, Maven, or Jenkins.
+When I am doing an interview of candidates, the previous projects (in GitHub or maybe on their machine) are much more critical for me than some fundamental questions about Git, Java, Selenium, Maven, or Jenkins.
 We are all people. In an interview, we all can experience anxiety or fear, so I do not believe you can evaluate candidates' many years' background in a couple of hours (even if it is in many panel interviews ~ 8 hours).
 I prefer to discuss the candidate demos (explore the code and see how clean it is and what library and why they were used) or discuss their articles in blogs or LinkedIn.
 
@@ -50,17 +50,23 @@ The following steps should get you set up for running **Selenium/Selenide** modu
 3. ` $ {project.base.dir}> mvn clean compile -Dmaven.test.skip=true install` - Clean up the `target` directory, upload all necessary dependencies, compile java classes and install shared module to the local **Maven** repository.
 4. ` $ {project.base.dir}\{module}> mvn clean compile ` - Clean up the `target` directory, upload all necessary dependencies and compile java classes.
 ### CHROME
-5. ` $ {project.base.dir}\{module}> mvn clean site -Dtest.suite=easy -Ddriver.type=chrome -Ddriver.version=94.0.4606.71 -Preporting` - Run test suite `easy` (without POM and additional layers) for Chrome browser version **94.0.4606.71**  (or you can provide your version) and generate reports ( Surefire Report; Allure; JaCoCo ).<br/>
+5. ` $ {project.base.dir}\{module}> mvn clean site -Dtest.suite=easy -Ddriver.type=chrome -Ddriver.version=108.0.5359.124 -Preporting` - Run test suite `easy` (without POM and additional layers) for Chrome browser version **94.0.4606.71**  (or you can provide your version) and generate reports ( Surefire Report; Allure; JaCoCo ).<br/>
    **NOTE!** The script will automatically download required WebDriver due too `-Ddriver.type` and `-Ddriver.version`.<br/><br/>
-6. ` $ {project.base.dir}\{module}> mvn clean site -Dtest.suite=advance -Dgroups=SEARCH -Ddriver.type=chrome -Ddriver.version=94.0.4606.71 `<br/><br/>
-7. ` $ {project.base.dir}\{module}> mvn clean site -Dtest.suite=all -Ddriver.type=chrome -Ddriver.version=94.0.4606.71 `<br/><br/>
-8. ` $ {project.base.dir}\{module}> mvn clean site -Dtest.suite=fileUploadDonload -Ddriver.type=chrome -Ddriver.version=94.0.4606.71 `<br/><br/>
+6. ` $ {project.base.dir}\{module}> mvn clean site -Dtest.suite=advance -Dgroups=SEARCH -Ddriver.type=chrome -Ddriver.version=108.0.5359.124 `<br/><br/>
+7. ` $ {project.base.dir}\{module}> mvn clean site -Dtest.suite=all -Ddriver.type=chrome -Ddriver.version=108.0.5359.124 `<br/><br/>
+8. ` $ {project.base.dir}\{module}> mvn clean site -Dtest.suite=fileUploadDonload -Ddriver.type=chrome -Ddriver.version=108.0.5359.124 `<br/><br/>
 ### FIREFOX (FF)
-9. ` $ {project.base.dir}\{module}> mvn clean site -Dtest.suite=easy -Ddriver.type=ff -Ddriver.version=0.30.0 `<br/><br/>
-10. ` $ {project.base.dir}\{module}> mvn clean site -Dtest.suite=advance -Dgroups=SEARCH -Ddriver.type=FIREFOX -Ddriver.version=0.30.0 `<br/><br/>
-11. ` $ {project.base.dir}\{module}> mvn clean site -Dtest.suite=all -Ddriver.type=ff -Ddriver.version=0.30.0 `<br/><br/>
-12. ` $ {project.base.dir}\{module}> mvn clean site -Dtest.suite=fileUploadDonload -Ddriver.type=ff -Ddriver.version=0.30.0 `<br/><br/>
+9. ` $ {project.base.dir}\{module}> mvn clean site -Dtest.suite=easy -Ddriver.type=ff -Ddriver.version=108.0.1 `<br/><br/>
+10. ` $ {project.base.dir}\{module}> mvn clean site -Dtest.suite=advance -Dgroups=SEARCH -Ddriver.type=FIREFOX -Ddriver.version=108.0.1 `<br/><br/>
+11. ` $ {project.base.dir}\{module}> mvn clean site -Dtest.suite=all -Ddriver.type=ff -Ddriver.version=108.0.1 `<br/><br/>
+12. ` $ {project.base.dir}\{module}> mvn clean site -Dtest.suite=fileUploadDonload -Ddriver.type=ff -Ddriver.version=108.0.1 `<br/><br/>
     **NOTE!** Please, do not forgot to use the Maven profile for report generation ` -Preporting` if you would like to have SureFire, Allure and JaCoCo reports.<br/><br/>
+
+    **NOTE!** For some of macOS versions you can disable verification [Cannot be opened because the developer cannot be verified]
+
+```
+sudo spctl --master-disable
+```
 
 ### Browsers
 The following are valid for use in the ` -Ddriver.type ` parameter:
@@ -92,3 +98,4 @@ In project exist 4 kind of reports (location: `{project.base.dir}\{module}\targe
 
 # Wishlist (TODO)
 1. [Accept Cookies] function on the landing page
+2. Unit testing for Utility methods

@@ -1,8 +1,12 @@
 package com.util;
 
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.yc.qa.util.BasePage;
+import com.yc.qa.util.BaseUtils;
+import com.yc.qa.util.ThreadStoreLocal;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Cookie;
 import org.openqa.selenium.JavascriptExecutor;
@@ -40,7 +44,7 @@ public class BasePageImpl extends BasePage {
 
 		eventFiringWebDriver = new EventFiringWebDriver(ThreadStoreLocal.getWebDriver());
 		eventFiringWebDriver.register(this.webDriverEventListener);
-		wait = new WebDriverWait(eventFiringWebDriver, 30);
+		wait = new WebDriverWait(eventFiringWebDriver, Duration.ofSeconds(30));
 		actions = new Actions(eventFiringWebDriver);
 		javascriptExecutor = eventFiringWebDriver;
 	}
@@ -51,7 +55,7 @@ public class BasePageImpl extends BasePage {
 
 		eventFiringWebDriver = new EventFiringWebDriver(ThreadStoreLocal.getWebDriver());
 		eventFiringWebDriver.register(this.webDriverEventListener);
-		wait = new WebDriverWait(eventFiringWebDriver, 30);
+		wait = new WebDriverWait(eventFiringWebDriver, Duration.ofSeconds(30));
 		actions = new Actions(eventFiringWebDriver);
 		javascriptExecutor = eventFiringWebDriver;
 	}
@@ -132,7 +136,7 @@ public class BasePageImpl extends BasePage {
 	}
 
 	@Override
-	@Step("Send text [{1}] to fild: [{0}]")
+	@Step("Send text [{1}] to field: [{0}]")
 	protected BasePageImpl sendKeysCustom(final By locator, final CharSequence text) {
 
 		if (text != null && !text.equals("null" + Keys.TAB)) {
@@ -501,16 +505,11 @@ public class BasePageImpl extends BasePage {
 		return currUrl != null ? currUrl : "N/A - URL";
 	}
 
-	/* Implement AsHoT - Screenshot with scrolling */
 	@Override
 	@Step("Create the screenshot of a page with name [{0}], isFull page [{1}]")
-	protected BasePageImpl makeScreenAsShot(String fileNames, boolean fullPage) {
+	protected BasePageImpl makeScreenShot(String fileNames) {
 
-		if (fullPage) {
-			scrollToTopPage();
-		}
-
-		BaseUtils.makeScreenAsShot(fileNames, fullPage, eventFiringWebDriver);
+		BaseUtils.makeScreenShot(fileNames, eventFiringWebDriver);
 
 		return this;
 	}

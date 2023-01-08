@@ -5,7 +5,7 @@
 
     <groupId>com.yc.qa</groupId>
     <artifactId>selenium-selenide-demo</artifactId>
-    <version>1.0.0-SNAPSHOT</version>
+    <version>1.0.1-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>Selenium-Selenide-Demo</name>
     <url>https://github.com/YuriiChukhrai/selenium-selenide-demo</url>
@@ -25,26 +25,26 @@
 
     <properties>
         <ng.suite>src/test/resources/testng/${test.suite}.xml</ng.suite>
-        <selenium.version>3.141.59</selenium.version>
 
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <jdk.version>1.8</jdk.version>
+        <jdk.version>11</jdk.version>
         <mvnSFplugin.version>3.0.0-M5</mvnSFplugin.version>
 
-        <aspectj.version>1.9.7</aspectj.version>
+        <aspectj.version>1.9.19</aspectj.version>
         <draft.package>draft</draft.package>
 
         <pmd.plugin.version>3.15.0</pmd.plugin.version>
         <checkstyle.plugin.version>3.1.2</checkstyle.plugin.version>
         <spotbugs.plugin.version>4.4.1</spotbugs.plugin.version>
 
-        <testng.version>7.4.0</testng.version>
-        <allure.version>2.15.0</allure.version>
-        <allure.maven.version>2.10.0</allure.maven.version>
+        <testng.version>7.1.0</testng.version>
+
+        <allure.version>2.20.1</allure.version>
+        <allure.maven.version>2.12.0</allure.maven.version>
 
         <reflectasm.version>1.11.3</reflectasm.version>
 
-        <jacoco.version>0.8.7</jacoco.version>
+        <jacoco.version>0.8.8</jacoco.version>
         <skip.integration.tests>true</skip.integration.tests>
         <skip.unit.tests>true</skip.unit.tests>
 
@@ -52,6 +52,9 @@
         </jacoco.it.execution.data.file>
         <jacoco.ut.execution.data.file>${project.build.directory}/coverage-reports/jacoco-ut.exec
         </jacoco.ut.execution.data.file>
+
+        <org.powermock.version>2.0.9</org.powermock.version>
+        <net.bytebuddy.version>1.12.6</net.bytebuddy.version>
     </properties>
 
     <dependencies>
@@ -81,12 +84,6 @@
         </dependency>
 
         <dependency>
-            <groupId>ru.yandex.qatools.ashot</groupId>
-            <artifactId>ashot</artifactId>
-            <version>1.5.4</version>
-        </dependency>
-
-        <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <version>1.18.20</version>
@@ -94,22 +91,17 @@
         </dependency>
 
         <dependency>
-            <groupId>org.seleniumhq.selenium</groupId>
-            <artifactId>selenium-java</artifactId>
-            <version>${selenium.version}</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.testng</groupId>
-                    <artifactId>testng</artifactId>
-                </exclusion>
-            </exclusions>
+            <groupId>org.powermock</groupId>
+            <artifactId>powermock-api-mockito2</artifactId>
+            <version>${org.powermock.version}</version>
+            <scope>test</scope>
         </dependency>
 
         <dependency>
-            <groupId>org.seleniumhq.selenium</groupId>
-            <artifactId>selenium-remote-driver</artifactId>
-            <version>${selenium.version}</version>
-            <scope>compile</scope>
+            <groupId>org.powermock</groupId>
+            <artifactId>powermock-module-testng</artifactId>
+            <version>${org.powermock.version}</version>
+            <scope>test</scope>
         </dependency>
 
     </dependencies>
@@ -126,6 +118,7 @@
                     <!-- <append>true</append> -->
                     <excludes>
                         <exclude>**/${draft.package}/*</exclude>
+                        <exclude>**/*Aspect.*</exclude>
                     </excludes>
                     <propertyName>surefireArgLine</propertyName>
                 </configuration>
@@ -280,7 +273,6 @@
                         <version>${pmd.plugin.version}</version>
                         <configuration>
                             <includeTests>true</includeTests>
-                            <linkXref>true</linkXref>
                             <sourceEncoding>utf-8</sourceEncoding>
                             <skipEmptyReport>false</skipEmptyReport>
                             <minimumTokens>100</minimumTokens>

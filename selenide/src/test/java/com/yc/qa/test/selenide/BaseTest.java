@@ -2,10 +2,10 @@ package com.yc.qa.test.selenide;
 
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.logevents.SelenideLogger;
-import com.util.BaseConfig;
-import com.util.Constants;
-import io.github.bonigarcia.wdm.WebDriverManager;
+import com.yc.qa.util.BaseConfig;
+import com.yc.qa.util.Constants;
 import io.qameta.allure.selenide.AllureSelenide;
+import org.openqa.selenium.remote.DesiredCapabilities;
 import org.testng.annotations.BeforeClass;
 
 /**
@@ -26,14 +26,15 @@ public class BaseTest {
         /*
          * some kind of Factory design pattern
          * */
-        final String driverType = BaseConfig.getProperty(Constants.DRIVER_TYPE_PROP);
-        Configuration.startMaximized = true;
+        Configuration.timeout = 10_000L;
 
-        if(driverType == null || Constants.CHROME_SHORT.equalsIgnoreCase(driverType) || Constants.CHROME_LONG.equalsIgnoreCase(driverType)){
-            WebDriverManager.chromedriver().driverVersion(BaseConfig.getProperty(Constants.DRIVER_VER_PROP)).setup();
-        }
-        else if(Constants.FIREFOX_SHORT.equalsIgnoreCase(driverType) || Constants.FIREFOX_LONG.equalsIgnoreCase(driverType)){
-            WebDriverManager.firefoxdriver().driverVersion(BaseConfig.getProperty(Constants.DRIVER_VER_PROP)).setup();
-        }
+
+        Configuration.browser = BaseConfig.getProperty(Constants.DRIVER_TYPE_PROP).toLowerCase();
+
+        DesiredCapabilities capabilities = new DesiredCapabilities();
+        capabilities.setBrowserName(BaseConfig.getProperty(Constants.DRIVER_TYPE_PROP).toLowerCase());
+        capabilities.setVersion(BaseConfig.getProperty(Constants.DRIVER_VER_PROP));
+
+        Configuration.browserCapabilities = capabilities;
 	}
 }

@@ -6,11 +6,12 @@ import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.FileDownloadMode;
 import com.codeborne.selenide.WebDriverRunner;
-import com.util.BaseUtils;
-import com.util.TestGroups;
+import com.yc.qa.util.BaseUtils;
+import com.yc.qa.util.TestGroups;
 import io.qameta.allure.*;
 import org.openqa.selenium.By;
 import org.testng.Assert;
+import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
@@ -21,14 +22,11 @@ import java.nio.file.Paths;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.open;
 import static com.codeborne.selenide.files.FileFilters.withName;
-import static com.util.BaseUtils.makeScreenAsShot;
+import static com.yc.qa.util.BaseUtils.makeScreenShot;
 
-/**
- * @author limit (Yurii Chukhrai)
- */
-public class UploadDownloadFileTest extends BaseTest  {
+public class UploadDownloadFileTest extends BaseTest {
 
-    BrowserUpProxy bmp;
+    private BrowserUpProxy bmp;
 
     @Override
     @BeforeClass(alwaysRun = true)
@@ -45,17 +43,16 @@ public class UploadDownloadFileTest extends BaseTest  {
      * In the current moment the plugin [allure-harviewer] support attachment inside the test method
      *
      * */
-//    @AfterClass(alwaysRun = true)
-//    public void afterClass() throws IOException {
-//
-//        if(bmp != null){
-//            final File harFile = new File("harFile.har");
-//            bmp.getHar().writeTo(harFile);
-//            bmp.stop();
-//            BaseUtils.addHar(harFile.getName(), harFile);
-//        }
-//    }
+    @AfterClass(alwaysRun = true)
+    public void afterClass() throws IOException {
 
+        if(bmp != null){
+            final File harFile = new File("harFile.har");
+            bmp.getHar().writeTo(harFile);
+
+            BaseUtils.addHar(harFile.getName(), harFile);
+        }
+    }
 
     @Features({ @Feature("UPLOAD"), @Feature("DOWNLOAD") })
     @Issues({ @Issue("GA-011"), @Issue("GTA-012") })
@@ -93,24 +90,25 @@ public class UploadDownloadFileTest extends BaseTest  {
         bmp.newHar("test.com");
 
 
-        //Upload
+        // Upload
         $(By.xpath("//input[@type='file']")).uploadFile(Paths.get(String.format(uploadPath, fileName01)).toFile(), Paths.get(String.format(uploadPath, fileName02)).toFile());
         $(By.xpath("//button//span[contains(text(),'Start upload')]")).shouldBe(Condition.visible).click();
 
-        makeScreenAsShot("Partial. Landing Page", false, WebDriverRunner.getWebDriver());
 
-        //Assertions
+        makeScreenShot("Partial. Landing Page", WebDriverRunner.getWebDriver());
+
+        // Assertions
         $(By.xpath(String.format(uploadedFileXpath, fileName01))).shouldBe(Condition.visible);
         $(By.xpath(String.format(uploadedFileXpath, fileName02))).shouldBe(Condition.visible);
 
         final File file01 = $(By.xpath(String.format(downloadPath, fileName01))).download(withName(fileName01));
         final File file02 = $(By.xpath(String.format(downloadPath, fileName02))).download(withName(fileName02));
 
-        //Attach files to the report
+        // Attach files to the report
         BaseUtils.attachImageFile(fileName01, file01);
         BaseUtils.attachImageFile(fileName02, file02);
 
-        //Download
+        // Download
         Assert.assertTrue(file01.exists());
         Assert.assertTrue(file02.exists());
 
@@ -127,5 +125,5 @@ public class UploadDownloadFileTest extends BaseTest  {
             bmp.stop();
             BaseUtils.addHar(harFile.getName(), harFile);
         }
-    }
+    } //Test
 }

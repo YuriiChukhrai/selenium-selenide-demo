@@ -1,12 +1,14 @@
 package com.yc.qa.test.selenium;
 
 
-import com.util.BaseUtils;
-import com.util.TestGroups;
+import com.yc.qa.util.BaseConfig;
+import com.yc.qa.util.BaseUtils;
+import com.yc.qa.util.Constants;
+import com.yc.qa.util.TestGroups;
 import com.util.WebDriverFactory;
+import io.github.bonigarcia.wdm.config.DriverManagerType;
 import io.qameta.allure.*;
 import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.interactions.Actions;
@@ -21,8 +23,6 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.file.Files;
@@ -32,9 +32,8 @@ import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
-import java.util.concurrent.TimeUnit;
 
-import static com.util.BaseUtils.makeScreenAsShot;
+import static com.yc.qa.util.BaseUtils.makeScreenShot;
 
 /**
  * @author limit (Yurii Chukhrai)
@@ -49,12 +48,13 @@ public class UploadDownloadFileTest {
     @BeforeClass
     public void beforeClass() {
 
-        driver = WebDriverFactory.createDriver();
-        driver.manage().timeouts().pageLoadTimeout(15, TimeUnit.SECONDS);
+        driver = WebDriverFactory.createInstance(DriverManagerType.valueOf(BaseConfig.getProperty(Constants.DRIVER_TYPE_PROP)), BaseConfig.getProperty(Constants.DRIVER_VER_PROP), null);
 
-        driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS); // Implicitly
+        driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(15));
 
-        webDriverWait = new WebDriverWait(driver, 15); // Explicitly
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(15)); // Implicitly
+
+        webDriverWait = new WebDriverWait(driver, Duration.ofSeconds(15)); // Explicitly
         wait = new FluentWait<WebDriver>(driver).withTimeout(Duration.ofSeconds(30)).pollingEvery(Duration.ofSeconds(5))
                 .ignoring(NoSuchElementException.class);
         actions = new Actions(driver);
@@ -98,7 +98,7 @@ public class UploadDownloadFileTest {
         driver.findElement(By.xpath("//input[@type='file']")).sendKeys(Paths.get(String.format(uploadPath, fileName)).toAbsolutePath().normalize().toString());
         driver.findElement(By.xpath("//button//span[contains(text(),'Start upload')]")).click();
 
-        makeScreenAsShot("Partial. Landing Page", false, driver);
+        makeScreenShot("Partial. Landing Page", driver);
 
         //Assertions
         webDriverWait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.xpath(String.format(uploadedFileXpath, fileName))));

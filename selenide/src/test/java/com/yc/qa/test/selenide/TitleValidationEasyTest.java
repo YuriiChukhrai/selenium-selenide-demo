@@ -5,9 +5,9 @@ package com.yc.qa.test.selenide;
  */
 import com.codeborne.selenide.Condition;
 
-import com.util.BaseConfig;
-import com.util.Constants;
-import com.util.TestGroups;
+import com.yc.qa.util.BaseConfig;
+import com.yc.qa.util.Constants;
+import com.yc.qa.util.TestGroups;
 import io.qameta.allure.*;
 
 import org.openqa.selenium.Keys;
@@ -49,9 +49,13 @@ public class TitleValidationEasyTest extends BaseTest {
 
 		Allure.feature(BaseConfig.getProperty(Constants.DRIVER_TYPE_PROP));
 
-       open("http://google.com");
+        open("https://google.com");
         $(byName("q")).shouldBe(Condition.visible).sendKeys(site + Keys.ENTER);
-		$$(byXpath(String.format("(//div[contains(@data-async-context,'%1$s')]//a[contains(@href,'%1$s')])[1]", site))).first().shouldBe(Condition.visible).click();
+		$$(byXpath(String.format("(//div[contains(@data-async-context,'%1$s')]//a[contains(@href,'%1$s')])[1]", site)))
+				.first()
+				.shouldBe(Condition.visible)
+				.click();
+
 		$("title").shouldHave(ownText(title));
 	}
 }

@@ -1,4 +1,4 @@
-package com.util;
+package com.yc.qa.util;
 
 import org.testng.IInvokedMethod;
 import org.testng.IInvokedMethodListener;
@@ -26,7 +26,7 @@ public class BaseListener implements ITestListener, IInvokedMethodListener {
 	@Override
 	public void onTestFailure(ITestResult result) {
 		if(!BaseUtils.isWebDriverDead(ThreadStoreLocal.getWebDriver())) {
-			BaseUtils.makeScreenAsShot("Test_FAIL_", false, ThreadStoreLocal.getWebDriver());
+			BaseUtils.makeScreenShot("Test_FAIL_", ThreadStoreLocal.getWebDriver());
 		}
 	}
 

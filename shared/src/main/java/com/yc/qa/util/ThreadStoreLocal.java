@@ -1,4 +1,4 @@
-package com.util;
+package com.yc.qa.util;
 
 import org.openqa.selenium.WebDriver;
 

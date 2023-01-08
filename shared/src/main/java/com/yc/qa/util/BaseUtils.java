@@ -1,23 +1,18 @@
-package com.util;
+package com.yc.qa.util;
 
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.util.Objects;
 import java.util.concurrent.ThreadLocalRandom;
 
-import javax.imageio.ImageIO;
-
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
 import io.qameta.allure.Attachment;
 import lombok.extern.log4j.Log4j;
-import ru.yandex.qatools.ashot.AShot;
-import ru.yandex.qatools.ashot.Screenshot;
-import ru.yandex.qatools.ashot.shooting.ShootingStrategies;
-import ru.yandex.qatools.ashot.shooting.ShootingStrategy;
 
 /**
  *
@@ -89,48 +84,8 @@ public final class BaseUtils {
 	}
 
 	@Attachment(value = "{0}", type = "image/png")
-	public static byte[] makeScreenAsShot(String fileNames, boolean fullPage, WebDriver webDriver) {
-		log.info(String.format("TID [%d] - Made screenshot for [%s].", Thread.currentThread().getId(), fileNames));
-
-		int scrollTimeout = 500;
-		int headerToCut = 2;
-		int footerToCut = 0;
-		float dpr = 2.0F;
-		ShootingStrategy shootingStrategy;
-
-		if (fullPage) {
-			//scrollToTopPage();
-
-			// TODO Create Enum for OS systems
-			shootingStrategy = BaseUtils.isOs("MAC")
-					? ShootingStrategies.viewportRetina(scrollTimeout, headerToCut, footerToCut, dpr)
-					: ShootingStrategies.viewportNonRetina(scrollTimeout, headerToCut, footerToCut);
-		} else {
-			shootingStrategy = ShootingStrategies.simple();
-		}
-
-		final Screenshot screenShot = new AShot().shootingStrategy(shootingStrategy)
-				.takeScreenshot(webDriver);
-
-//		if (fullPage) {
-//			scrollToTopPage();
-//		}
-
-		byte[] imageInByte = null;
-
-		try (ByteArrayOutputStream baos = new ByteArrayOutputStream()) {
-
-			ImageIO.write(screenShot.getImage(), "PNG", baos); // Does not work for "JPG"
-			baos.flush();
-			imageInByte = baos.toByteArray();
-
-		} catch (IOException e) {
-			log.error(String.format("TID [%d] - Can't save screenshot for [%s] to the disk. Msg [%s].",
-					Thread.currentThread().getId(), fileNames, e.getMessage()));
-			e.printStackTrace();
-		}
-
-		return imageInByte;
+	public static byte[] makeScreenShot(String fileName, WebDriver webDriver) {
+		return ((TakesScreenshot) webDriver).getScreenshotAs(OutputType.BYTES);
 	}
 
 	public static boolean isEmpty(final String s) {

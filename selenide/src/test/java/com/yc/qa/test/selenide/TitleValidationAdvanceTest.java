@@ -5,9 +5,12 @@ package com.yc.qa.test.selenide;
  * @author limit (Yurii Chukhrai)
  */
 
-import com.util.*;
 import com.yc.qa.google.search.SearchPageImpl;
 import com.yc.qa.indeed.pom.LandingPageImpl;
+import com.yc.qa.util.BaseConfig;
+import com.yc.qa.util.BaseListener;
+import com.yc.qa.util.Constants;
+import com.yc.qa.util.TestGroups;
 import io.qameta.allure.*;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Listeners;

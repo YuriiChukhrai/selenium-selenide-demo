@@ -1,4 +1,4 @@
-package com.exception;
+package com.yc.qa.exception;
 
 import org.apache.log4j.Logger;
 

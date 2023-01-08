@@ -1,27 +1,37 @@
 package com.util;
 
-import java.util.logging.Level;
+import io.github.bonigarcia.wdm.WebDriverManager;
+import io.github.bonigarcia.wdm.config.DriverManagerType;
 
+import lombok.extern.log4j.Log4j;
+import org.apache.commons.lang3.StringUtils;
+import org.openqa.selenium.Capabilities;
+import org.openqa.selenium.PageLoadStrategy;
 import org.openqa.selenium.UnexpectedAlertBehaviour;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.firefox.FirefoxDriverLogLevel;
 import org.openqa.selenium.firefox.FirefoxOptions;
-import org.openqa.selenium.logging.LogType;
-import org.openqa.selenium.logging.LoggingPreferences;
-import org.openqa.selenium.remote.CapabilityType;
 
-import com.exception.UnknownTypeWebDriverExceptions;
+import java.time.Duration;
+import java.util.Collections;
+import java.util.Objects;
 
-import io.github.bonigarcia.wdm.WebDriverManager;
-import io.github.bonigarcia.wdm.config.OperatingSystem;
-import lombok.extern.log4j.Log4j;
+//TODO - unit testing
 
 /**
- *
- * @author limit (Yurii Chukhrai)
+ * @author: Yurii Chukhrai
+ * @see <a href="https://bonigarcia.dev/webdrivermanager/">Webdriver Manager</a>
+ * @see <a href="https://selenide.org/documentation.html">Selenide</a>
+ * @see <a href="https://github.com/bonigarcia/webdrivermanager/blob/master/src/test/java/io/github/bonigarcia/wdm/test/create/ChromeRemoteTest.java">Web-Driver Manager. Remote</a>
+ * <p>
+ * DriverManagerType browserName:
+ * CHROME("org.openqa.selenium.chrome.ChromeDriver")
+ * FIREFOX("org.openqa.selenium.firefox.FirefoxDriver")
+ * OPERA("org.openqa.selenium.opera.OperaDriver")
+ * EDGE("org.openqa.selenium.edge.EdgeDriver")
+ * IEXPLORER("org.openqa.selenium.ie.InternetExplorerDriver")
+ * CHROMIUM("org.openqa.selenium.chrome.ChromeDriver")
+ * SAFARI("org.openqa.selenium.safari.SafariDriver")
  */
 @Log4j
 public final class WebDriverFactory {
@@ -30,94 +40,98 @@ public final class WebDriverFactory {
         throw new UnsupportedOperationException("Illegal access to private constructor");
     }
 
-    public static synchronized WebDriver createDriver() {
-        return WebDriverFactory.createDriver(BaseConfig.getProperty(Constants.DRIVER_TYPE_PROP),
-                BaseConfig.getProperty(Constants.DRIVER_VER_PROP));
-    }
+    public static WebDriver createInstance(final WebDriverInstDesc webDriverInstDesc) {
 
-    /**
-     * @param driverType    (CLO: -Ddriver.type=CHROME)
-     * @param driverVersion (CLO: -Ddriver.version=92.0.4515.107)
-     */
-    public static synchronized WebDriver createDriver(final String driverType, final String driverVersion) {
-        WebDriver driver = null;
+        // Remote mode
+        if (webDriverInstDesc.isRemoteWebDriver() && !StringUtils.isEmpty(webDriverInstDesc.getRemoteUrl())) {
+            log.info("Remote MODE");
 
-        final LoggingPreferences logs = new LoggingPreferences();
-        logs.enable(LogType.BROWSER, Level.SEVERE);
-
-        if (!BaseUtils.isEmpty(driverType) && !BaseUtils.isEmpty(driverVersion)) {
-
-            switch (driverType.trim().toUpperCase()) {
-
-                case Constants.FIREFOX_SHORT:
-                case Constants.FIREFOX_LONG:
-
-                    log.info("Create Gecko WebDriver");
-                    FirefoxOptions firefoxOptions = new FirefoxOptions();
-                    firefoxOptions.setLogLevel(FirefoxDriverLogLevel.ERROR);
-                    //firefoxOptions.setCapability(FirefoxDriver.MARIONETTE, true);
-                    firefoxOptions.setCapability(CapabilityType.LOGGING_PREFS, logs);
-                    firefoxOptions.setCapability("handlesAlerts", true);
-                    firefoxOptions.setCapability("acceptInsecureCerts", true);
-
-                    firefoxOptions.setCapability("moz:webdriverClick", false);
-                    firefoxOptions.setCapability("pageLoadStrategy", "normal");
-                    firefoxOptions.setCapability("javascriptEnabled", true);
-                    firefoxOptions.setCapability("headless", false);
-
-                    WebDriverManager.firefoxdriver().driverVersion(driverVersion)
-                            .operatingSystem(BaseUtils.isOs("MAC") ? OperatingSystem.MAC : OperatingSystem.WIN).setup();
-
-                    driver = new FirefoxDriver(firefoxOptions);
-                    driver.manage().window().fullscreen();
-
-                    break;
-
-                case Constants.CHROME_SHORT:
-                case Constants.CHROME_LONG:
-                    log.info("Create Chrome WebDriver");
-                    ChromeOptions chromeOptions = new ChromeOptions();
-
-                    chromeOptions.setUnhandledPromptBehaviour(UnexpectedAlertBehaviour.ACCEPT);
-                    chromeOptions.setAcceptInsecureCerts(true);
-                    chromeOptions.setCapability(CapabilityType.LOGGING_PREFS, logs);
-
-                    chromeOptions.addArguments("start-maximized"); // Works for Windows but not for MAC
-                    chromeOptions.addArguments("start-fullscreen");// Works for MAC
-                    chromeOptions.addArguments("kiosk");// Do not works for LINUX
-
-                    chromeOptions.addArguments("verbose");
-                    chromeOptions.addArguments("--enable-logging --v=1");
-                    chromeOptions.addArguments("--enable-logging=stderr --v=1");
-
-                    chromeOptions.addArguments("no-sandbox");
-                    chromeOptions.addArguments("disable-infobars");
-                    chromeOptions.addArguments("ignore-certificate-errors");
-                    chromeOptions.addArguments("disable-notifications");
-
-                    chromeOptions.addArguments("lang=en");
-                    chromeOptions.addArguments("disable-web-security");
-
-                    //chromeOptions.addArguments("user-data-dir=/Users/yurii.chukhrai@mckesson.com/Library/Application Support/Google/Chrome/Default");
-
-                    WebDriverManager.chromedriver().driverVersion(driverVersion)
-                            .operatingSystem(BaseUtils.isOs("MAC") ? OperatingSystem.MAC : OperatingSystem.WIN).setup();
-                    driver = new ChromeDriver(chromeOptions);
-
-                    break;
-
-
-
-                //TODO Add support of HTMLUNIT headless browser.
-
-                default:
-                    throw new UnknownTypeWebDriverExceptions(String.format("Unknown driver type [%s]", driverType));
-            }
-        } else {
-            throw new UnknownTypeWebDriverExceptions(
-                    String.format("Driver type/version was [null]. Type[%s]. Version[%s].", driverType, driverVersion));
+            return WebDriverManager
+                    .getInstance(webDriverInstDesc.getBrowserName())
+                    .remoteAddress(webDriverInstDesc.getRemoteUrl())
+                    .capabilities(webDriverInstDesc.getCapabilities())
+                    .create();
         }
 
-        return driver;
+        // Local mode
+        else {
+            log.info("Local MODE");
+
+            return WebDriverManager
+                    .getInstance(webDriverInstDesc.getBrowserName())
+                    .driverVersion(webDriverInstDesc.getBrowserVersion())
+                    .capabilities(webDriverInstDesc.getCapabilities())
+                    .create();
+        }
+    }
+
+    public static WebDriver createInstance(final DriverManagerType browserName, final String browserVersion, Capabilities capabilities) {
+
+        return WebDriverManager
+                .getInstance(browserName)
+                .driverVersion(browserVersion)
+                .capabilities(Objects.nonNull(capabilities) ? capabilities : getDefaultCapabilities(browserName) )
+                .create();
+    }
+
+    private static Capabilities getDefaultCapabilities(DriverManagerType browserName) {
+
+        switch (browserName) {
+
+            case CHROME: {
+
+                final ChromeOptions chromeOptions = new ChromeOptions();
+
+                chromeOptions
+                        //.setBrowserVersion("104")
+                        //.setPlatformName("Unix")
+                        .setUnhandledPromptBehaviour(UnexpectedAlertBehaviour.IGNORE)
+                        .setAcceptInsecureCerts(true)
+                        .setPageLoadStrategy(PageLoadStrategy.EAGER)
+                        .setStrictFileInteractability(true)
+                        .setImplicitWaitTimeout(Duration.ofSeconds(5))
+                        .setPageLoadTimeout(Duration.ofSeconds(30))
+                        .setScriptTimeout(Duration.ofSeconds(60));
+
+                chromeOptions.setExperimentalOption("detach", false);
+                chromeOptions.setExperimentalOption("excludeSwitches", Collections.singletonList("enable-automation"));
+                chromeOptions.addArguments("--disable-extensions");
+                chromeOptions.addArguments("--no-proxy-server");
+                chromeOptions.addArguments("--start-maximized");
+                chromeOptions.addArguments("use-fake-ui-for-media-stream");
+                chromeOptions.addArguments("disable-user-media-security");
+                chromeOptions.addArguments("allow-running-insecure-content");
+                chromeOptions.addArguments("use-fake-device-for-media-stream");
+                chromeOptions.addArguments("allow-file-access-from-files");
+
+                return chromeOptions;
+            }
+
+            case FIREFOX: {
+
+                final FirefoxOptions firefoxOptions = new FirefoxOptions();
+                firefoxOptions.setAcceptInsecureCerts(true);
+
+                firefoxOptions.addArguments("--start-maximized");
+                        //.AddArgument();
+
+                //firefoxOptions.setCapability(FirefoxDriver., false);
+                //firefoxOptions.setCapability("handlesAlerts", true);
+                //firefoxOptions.setCapability("acceptInsecureCerts", true);
+                //firefoxOptions.addPreference("geo.enabled", false);
+                //firefoxOptions.addPreference("dom.webnotifications.serviceworker.enabled", false);
+                //firefoxOptions.addPreference("dom.webnotifications.enabled", false);
+                //firefoxOptions.setCapability("moz:webdriverClick", false);
+                //firefoxOptions.setCapability("pageLoadStrategy", "normal");
+                //firefoxOptions.setCapability("javascriptEnabled", true);
+                //firefoxOptions.setCapability("headless", false);
+                // [handlesAlerts, headless, javascriptEnabled];
+
+                return firefoxOptions;
+            }
+
+        }
+
+        return null;
     }
 }

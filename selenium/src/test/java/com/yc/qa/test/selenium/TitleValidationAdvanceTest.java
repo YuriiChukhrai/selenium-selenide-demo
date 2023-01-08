@@ -1,16 +1,20 @@
 package com.yc.qa.test.selenium;
 
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
 
-import com.util.*;
+import com.util.WebDriverFactory;
+import com.yc.qa.util.*;
+import io.github.bonigarcia.wdm.config.DriverManagerType;
 import io.qameta.allure.*;
+import org.openqa.selenium.WebDriver;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 
-import com.yc.qa.test.selenium.BaseTest;
 import com.yc.qa.google.search.SearchPageImpl;
 import com.yc.qa.indeed.pom.LandingPageImpl;
 
@@ -20,6 +24,17 @@ import com.yc.qa.indeed.pom.LandingPageImpl;
  */
 @Listeners(BaseListener.class)
 public class TitleValidationAdvanceTest extends BaseTest {
+
+	@BeforeMethod(alwaysRun = true)
+	public final void setUpMethod() {
+		final WebDriver wd = WebDriverFactory.createInstance(DriverManagerType.valueOf(BaseConfig.getProperty(Constants.DRIVER_TYPE_PROP)), BaseConfig.getProperty(Constants.DRIVER_VER_PROP), null);
+		wd.manage().window().maximize();
+		wd.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(15));
+		wd.manage().timeouts().implicitlyWait(Duration.ofSeconds(15)); //Implicitly
+
+		ThreadStoreLocal.setWebDriver(wd);
+	}
+
 
 	@DataProvider(parallel = true)
 	public Iterator<String> dp() {

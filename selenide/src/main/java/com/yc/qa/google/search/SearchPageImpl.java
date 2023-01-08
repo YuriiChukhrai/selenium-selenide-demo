@@ -3,7 +3,7 @@ package com.yc.qa.google.search;
 import static com.codeborne.selenide.Selectors.byXpath;
 import static com.codeborne.selenide.Selenide.*;
 import static com.codeborne.selenide.Selenide.$;
-import static com.util.BaseUtils.makeScreenAsShot;
+import static com.yc.qa.util.BaseUtils.makeScreenShot;
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.WebDriverRunner;
@@ -19,7 +19,7 @@ import org.openqa.selenium.Keys;
 @Log4j
 public final class SearchPageImpl implements SearchPage {
 
-	private final String inputFieldXpath ="//input[@name='q']";
+	private final String inputFieldXpath = "//input[@name='q']";
 	private final String linksXpathTemplate = "(//div[contains(@data-async-context,'%1$s')]//a[contains(@href,'%1$s')])[1]";
 
 	private String searchContent;
@@ -40,8 +40,7 @@ public final class SearchPageImpl implements SearchPage {
 
 		$$(byXpath(String.format(linksXpathTemplate, this.searchContent))).first().shouldBe(Condition.visible).click();
 
-		makeScreenAsShot("Partial. Landing Page", false, WebDriverRunner.getWebDriver());
-		makeScreenAsShot("Full. Landing Page", true, WebDriverRunner.getWebDriver());
+		makeScreenShot("Partial. Landing Page", WebDriverRunner.getWebDriver());
 
 		return ConstructorAccess.get(pageObject).newInstance();
 	}

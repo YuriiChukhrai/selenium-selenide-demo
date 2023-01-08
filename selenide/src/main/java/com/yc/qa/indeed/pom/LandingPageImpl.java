@@ -1,8 +1,8 @@
 package com.yc.qa.indeed.pom;
 
 import com.codeborne.selenide.Condition;
-import com.util.BaseConfig;
-import com.util.Constants;
+import com.yc.qa.util.BaseConfig;
+import com.yc.qa.util.Constants;
 import io.qameta.allure.Step;
 import lombok.extern.log4j.Log4j;
 

@@ -53,8 +53,7 @@ public final class SearchPageImpl extends BasePageImpl implements SearchPage {
 		.get()
 		.click();
 
-		makeScreenAsShot("Partial. Landing Page", false);
-		makeScreenAsShot("Full. Landing Page", true);
+		makeScreenShot("Partial. Landing Page");
 
 		return ConstructorAccess.get(pageObject).newInstance();
 	}

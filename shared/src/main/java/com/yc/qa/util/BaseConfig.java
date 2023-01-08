@@ -1,4 +1,4 @@
-package com.util;
+package com.yc.qa.util;
 
 import java.util.Properties;
 

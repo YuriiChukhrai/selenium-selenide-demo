@@ -13,13 +13,11 @@
     <parent>
         <groupId>com.yc.qa</groupId>
         <artifactId>selenium-selenide-demo</artifactId>
-        <version>1.0.0-SNAPSHOT</version>
+        <version>1.0.1-SNAPSHOT</version>
     </parent>
 
     <properties>
-        <selenide.version>5.25.0</selenide.version>
-        <selenide-testng.version>1.0.0</selenide-testng.version>
-        <allure-selenide.version>2.15.0</allure-selenide.version>
+        <selenide.version>6.10.3</selenide.version>
     </properties>
 
     <dependencies>
@@ -34,6 +32,12 @@
             <groupId>com.yc.qa</groupId>
             <artifactId>shared</artifactId>
             <version>${project.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.seleniumhq.selenium</groupId>
+                    <artifactId>selenium-java</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
         <dependency>
@@ -43,16 +47,16 @@
         </dependency>
 
         <dependency>
-            <groupId>org.selenide</groupId>
+            <groupId>com.codeborne</groupId>
             <artifactId>selenide-testng</artifactId>
-            <version>${selenide-testng.version}</version>
+            <version>${selenide.version}</version>
             <scope>test</scope>
         </dependency>
 
         <dependency>
-            <groupId>com.browserup</groupId>
-            <artifactId>browserup-proxy-core</artifactId>
-            <version>2.1.2</version>
+            <groupId>com.codeborne</groupId>
+            <artifactId>selenide-proxy</artifactId>
+            <version>${selenide.version}</version>
         </dependency>
 
     </dependencies>
